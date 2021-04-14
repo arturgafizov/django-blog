@@ -59,3 +59,9 @@ django-microservice-request>=0.1.3
 
 # TextEditor
 django-summernote==0.8.11.6
+
+# PhoneNumberField
+django-phonenumber-field==5.0.0
+phonenumbers==8.12.18
+
+django-countries==7.1

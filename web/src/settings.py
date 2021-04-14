@@ -80,7 +80,8 @@ THIRD_PARTY_APPS = [
     'drf_yasg',
     'corsheaders',
     'rosetta',
-
+    'django_countries',
+    'phonenumber_field',
 ]
 
 LOCAL_APPS = [
@@ -88,7 +89,8 @@ LOCAL_APPS = [
     'auth_app.apps.AuthAppConfig',
     'blog.apps.BlogConfig',
     'contact_us.apps.ContactUsConfig',
-
+    'profiles.apps.ProfilesConfig',
+    'articles.apps.ArticlesConfig',
 ]
 
 INSTALLED_APPS += THIRD_PARTY_APPS + LOCAL_APPS
@@ -190,6 +192,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ITEM_IMAGE_DIR = 'avatar_images/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

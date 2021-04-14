@@ -9,6 +9,8 @@ admin_url = settings.ADMIN_URL
 
 urlpatterns = [
     path('', include('main.urls')),
+    path('profiles/', include('profiles.urls')),
+    path('', include('articles.urls')),
     path('auth/', include('auth_app.urls')),
     path('', include('blog.urls')),
     path('', include('contact_us.urls')),

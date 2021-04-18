@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-
+from rest_framework.reverse import reverse_lazy
+from django.utils.safestring import mark_safe
 from . import managers
 from .choices import ArticleStatus
 
@@ -12,10 +13,11 @@ User = get_user_model()
 class Category(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='parent_set', blank=True, null=True)
     objects = models.Manager()
 
     def __str__(self):
-        return self.name
+        return '{name}'.format(name=self.name)
 
     class Meta:
         verbose_name = _('Category')
@@ -24,6 +26,15 @@ class Category(models.Model):
     def save(self, **kwargs):
         self.slug = slugify(self.name, allow_unicode=True)
         return super().save(**kwargs)
+
+    # def get_absolute_url(self):
+    #     return reverse_lazy('category-detail', kwargs={'slug': self.slug})
+
+    def article_image(self):
+        url = self.image.url if self.image else ''
+        return mark_safe('<img src="%s" width="150" height="150" />' % (url, ))
+
+    article_image.short_description = 'Image'
 
 
 class Article(models.Model):
@@ -43,11 +54,16 @@ class Article(models.Model):
         return self.title[:30]
 
     def __str__(self):
-        return '{title} - {author}'.format(title=self.short_title, author=self.author)
+        # return '{id}' .format(id=self.id)
+        return '{id} - {title} - {author}'.format(id=self.id, title=self.short_title, author=self.author)
 
     def save(self, **kwargs):
         self.slug = slugify(self.title, allow_unicode=True)
         return super().save(**kwargs)
+
+    def get_absolute_url(self):
+        url = 'blog:post-detail'
+        return reverse_lazy(url, kwargs={'slug': self.slug})
 
     class Meta:
         verbose_name = _('Article')
@@ -62,9 +78,12 @@ class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comment_set')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='parent_set', blank=True, null=True)
     objects = models.Manager()
 
     class Meta:
         verbose_name = _('Comment')
         verbose_name_plural = _('Comments')
+
+    def __str__(self) -> str:
+        return f'{self.id}, {self.author}, {self.content}'

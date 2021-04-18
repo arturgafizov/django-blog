@@ -10,7 +10,6 @@ admin_url = settings.ADMIN_URL
 urlpatterns = [
     path('', include('main.urls')),
     path('profiles/', include('profiles.urls')),
-    path('', include('articles.urls')),
     path('auth/', include('auth_app.urls')),
     path('', include('blog.urls')),
     path('', include('contact_us.urls')),
@@ -18,6 +17,7 @@ urlpatterns = [
     path(f'{admin_url}/defender/', include('defender.urls')),
     path('api/', include('rest_framework.urls')),
     path('rosetta/', include('rosetta.urls')),
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 urlpatterns += swagger_url

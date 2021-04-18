@@ -53,9 +53,11 @@ EMAIL_TIMEOUT = 15
 EMAIL_USE_SSL = int(os.environ.get("EMAIL_USE_SSL", 0))
 EMAIL_USE_TLS = int(os.environ.get("EMAIL_USE_TLS", 1))
 
-ENABLE_RENDERING = os.environ.get('ENABLE_RENDERING', True)
+ENABLE_RENDERING = int(os.environ.get('ENABLE_RENDERING', 1))
 
-USER_AVATAR_MAX_SIZE = 4.0  #
+USER_AVATAR_MAX_SIZE = 4.0
+
+GITHUB_ACCOUNT = 'https://github.com/arturgafizov'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -80,6 +82,8 @@ THIRD_PARTY_APPS = [
     'drf_yasg',
     'corsheaders',
     'rosetta',
+    'django_summernote',
+
     'django_countries',
     'phonenumber_field',
 ]
@@ -90,7 +94,6 @@ LOCAL_APPS = [
     'blog.apps.BlogConfig',
     'contact_us.apps.ContactUsConfig',
     'profiles.apps.ProfilesConfig',
-    'articles.apps.ArticlesConfig',
 ]
 
 INSTALLED_APPS += THIRD_PARTY_APPS + LOCAL_APPS
@@ -145,6 +148,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'blog.processor.articles',
             ],
         },
     },

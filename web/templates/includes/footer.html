@@ -1,6 +1,7 @@
-{% load static main %}
+{% load static main blog_filter %}
 {% microservice_title as microservice_title %}
-
+{% phonenumber as phonenumber %}
+{% github_url as github_url %}
 <footer>
   <div class="row">
     <div class="col-lg-12">
@@ -16,7 +17,7 @@
               <div class="caption">
                 <div class="blur"></div>
                 <div class="caption-text">
-                  <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">THIS IS H3</h3>
+                  <h3 style="border-top:2px solid white; border-bottom:2px solid white; padding:10px;">{{ phonenumber }}</h3>
                   <p>Loren ipsum dolor si amet ipsum dolor si amet ipsum dolor...</p>
                   <a class=" btn btn-default" href="#"><span class="glyphicon glyphicon-plus"> INFO</span></a>
                 </div>
@@ -44,15 +45,15 @@
 
           <div class="col-lg-3 col-md-6">
             <h3>Categories:</h3>
+            {% for category in categories %}
+              {% for list_category in list_categories %}
+                {% if category.name == list_category %}
             <ul>
-              <li><a href=""><i class="fa fa-file"></i> News</a></li>
-              <li><a href=""><i class="fa fa-android"></i> Android</a></li>
-              <li><a href=""><i class="fa fa-code"></i> C#</a></li>
-              <li><a href=""><i class="fa fa-code"></i> Java</a></li>
-              <li><a href=""><i class="fa fa-book"></i> Books</a></li>
-              <li><a href=""><i class="fa fa-globe"></i> Web</a></li>
-              <li><a href=""><i class="fa fa-windows"></i> Windows</a></li>
+              <li><a href=""><i class="fa fa-file"></i>{{ category.name }}</a></li>
             </ul>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
           </div>
 
           <div class="col-lg-3 col-md-6">
@@ -68,7 +69,7 @@
                 <i class="fa fa-twitter fa-stack-1x"></i>
               </span> Twitter
             </a>
-            <a href="" target="_blank" title="GitHub">
+            <a href="{{ github_url }}" target="_blank" title="GitHub">
               <span class="fa-stack fa-lg">
                 <i class="fa fa-square-o fa-stack-2x"></i>
                 <i class="fa fa-github fa-stack-1x"></i>

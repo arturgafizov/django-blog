@@ -8,19 +8,11 @@ app_name = 'blog'
 
 router = DefaultRouter()
 router.register('categories', views.CategoryViewSet, basename='categories')
+router.register('posts', views.ArticleViewSet, basename='post')
+router.register('comment', views.CommentViewSet, basename='comment')
 
 urlpatterns = [
 
 ]
 
 urlpatterns += router.urls
-
-
-if settings.ENABLE_RENDERING:
-    from . import template_views as t_views
-
-    urlpatterns += [
-        path('posts/', t_views.BlogListView.as_view(), name='post_list'),
-        path('posts/<slug>/', t_views.BlogDetailView.as_view(), name='post_detail'),
-
-    ]

@@ -12,3 +12,4 @@ web/.cache
 .cache
 web/media/*
 venv
+modules.txt

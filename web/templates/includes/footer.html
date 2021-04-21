@@ -46,13 +46,9 @@
           <div class="col-lg-3 col-md-6">
             <h3>Categories:</h3>
             {% for category in categories %}
-              {% for list_category in list_categories %}
-                {% if category.name == list_category %}
             <ul>
               <li><a href=""><i class="fa fa-file"></i>{{ category.name }}</a></li>
             </ul>
-                {% endif %}
-              {% endfor %}
             {% endfor %}
           </div>
 

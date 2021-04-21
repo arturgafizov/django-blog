@@ -1,4 +1,5 @@
 <!-- the comment box -->
+{% load blog_filter%}
 <div class="well">
   <h4><i class="fa fa-paper-plane-o"></i> Leave a Comment:</h4>
   <form role="form">
@@ -9,14 +10,19 @@
   </form>
 </div>
 <hr>
-
 <!-- the comments -->
-<h3><i class="fa fa-comment"></i> User One says:
-  <small> 9:41 PM on August 24, 2014</small>
+{% for comment in comments %}
+<h3><i class="fa fa-comment"></i> {{ comment.author }}:
+  <small> {{ comment.updated|timefilter  }}</small>
 </h3>
-<p>Excellent post! Thank You the great article, it was useful!</p>
+<p>{{ comment.content }}</p>
+  <button type="submit" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
+  {% for child in comment.child %}
+    <h3><i class="fa fa-comment"></i> {{ child.author }}:
+      <small> {{ child.updated|timefilter  }}</small>
+    </h3>
+    <p>{{ child.content }}</p>
+  {% endfor %}
+{% endfor %}
 
-<h3><i class="fa fa-comment"></i> User Two says:
-  <small> 9:47 PM on August 24, 2014</small>
-</h3>
-<p>Excellent post! Thank You the great article, it was useful!</p>
+

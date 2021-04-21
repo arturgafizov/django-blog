@@ -18,17 +18,11 @@
       <a href=""><span class="badge badge-info">HTML</span></a></p>
 
     <hr>
-    <img src="articles/{{ image }}" width="900" height="300" alt="image" class="image img-responsive">
+    <img src="{{ image }}" width="400" height="200" alt="image" class="image img-responsive">
     <hr>
-    <p class="lead">{{ content|striptags }}</p>
+    <p class="lead">{{ content|safe }}</p>
     <p>
     </p>
-    <p>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor.
-      Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor.</p>
-    <p>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor.
-      Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor.</p>
-    <p>Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor.
-      Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor.</p>
     <br/>
 
     <br/>

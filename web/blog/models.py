@@ -30,12 +30,6 @@ class Category(models.Model):
     # def get_absolute_url(self):
     #     return reverse_lazy('category-detail', kwargs={'slug': self.slug})
 
-    def article_image(self):
-        url = self.image.url if self.image else ''
-        return mark_safe('<img src="%s" width="150" height="150" />' % (url, ))
-
-    article_image.short_description = 'Image'
-
 
 class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='article_set')
@@ -69,6 +63,12 @@ class Article(models.Model):
         verbose_name = _('Article')
         verbose_name_plural = _('Articles')
         ordering = ('-updated', '-created', 'id')
+
+    def article_image(self):
+        url = self.image.url if self.image else ''
+        return mark_safe('<img src="%s" width="150" height="150" />' % (url, ))
+
+    article_image.short_description = 'Image'
 
 
 class Comment(models.Model):

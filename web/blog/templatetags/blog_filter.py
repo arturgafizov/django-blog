@@ -1,6 +1,7 @@
 from django import template
 from datetime import datetime
 from django.conf import settings
+from blog.models import Category
 register = template.Library()
 
 
@@ -22,4 +23,7 @@ def github_url():
     return settings.GITHUB_ACCOUNT
 
 
-
+@register.simple_tag()
+def category2():
+    categories = Category.objects.all()
+    return categories

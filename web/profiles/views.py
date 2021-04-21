@@ -30,7 +30,6 @@ class UploadAvatarView(GenericAPIView):
 
 
 class ProfileRetrieveView(GenericAPIView):
-    renderer_classes = [TemplateHTMLRenderer]
     template_name = 'profile/profile_detail.html'
     serializer_class = ProfileSerializer
 

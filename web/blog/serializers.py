@@ -4,14 +4,22 @@ from main.serializers import UserSerializer
 from .models import Category, Article, Comment
 
 
+class ParentCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = (
+            'id', 'author', 'content', 'updated', 'article',
+        )
+
+
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.EmailField(required=False)
+    child = ParentCommentSerializer(many=True, read_only=True, source='parent_set')
 
     class Meta:
         model = Comment
-
         fields = (
-            'id', 'author', 'content', 'parent', 'updated', 'article',
+            'id', 'author', 'content', 'child', 'updated', 'article',
         )
         ref_name = "Comment_Article"
 
@@ -65,12 +73,17 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('title', 'url', 'author', 'category', 'created', 'updated', 'comments_count')
+        fields = ('title', 'url', 'author', 'category', 'created', 'updated', 'comments_count', 'image')
 
 
 class FullArticleSerializer(ArticleSerializer):
+    # comments = CommentSerializer(source='comment_set', many=True, data=Comment.objects.filter(parent__isnull=True))
+    comments = serializers.SerializerMethodField(method_name='get_root_comments')
 
-    comments = CommentSerializer(source='comment_set', many=True)
+    def get_root_comments(self, obj):
+        queryset = obj.comment_set.filter(parent__isnull=True)
+        serializer = CommentSerializer(many=True, source='comment_set', instance=queryset)
+        return serializer.data
 
     class Meta(ArticleSerializer.Meta):
         fields = ArticleSerializer.Meta.fields + ('content', 'comments',)

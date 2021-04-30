@@ -10,18 +10,24 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <form action="r" method="post" accept-charset="utf-8" class="form" role="form">
+    <form action="{% url 'auth_app:api_sign_up' %}" method="post" accept-charset="utf-8" class="form" role="form" id="signUpForm">
       <legend>Sign Up</legend>
       <h4>It's free and always will be.</h4>
       <div class="row">
-        <div class="col-xs-6 col-md-6">
-          <input type="text" name="first_name" value="" class="form-control input-lg" placeholder="First Name"/></div>
-        <div class="col-xs-6 col-md-6">
-          <input type="text" name="last_name" value="" class="form-control input-lg" placeholder="Last Name"/></div>
+        <div class="col-xs-6 col-md-6" id="firstNameGroup">
+          <input type="text" name="first_name" value="" class="form-control input-lg" placeholder="First Name" required/></div>
+        <div class="col-xs-6 col-md-6" id="lastNameGroup">
+          <input type="text" name="last_name" value="" class="form-control input-lg" placeholder="Last Name" required/></div>
       </div>
-      <input type="text" name="email" value="" class="form-control input-lg" placeholder="Your Email"/><input
-      type="password" name="password1" value="" class="form-control input-lg" placeholder="Password"/><input
-      type="password" name="password2" value="" class="form-control input-lg" placeholder="Confirm Password"/>
+      <div id="emailGroup">
+        <input type="text" name="email" value="" class="form-control input-lg" placeholder="Your Email" required/>
+      </div>
+      <div id="password1Group">
+        <input type="password" name="password1" value="" class="form-control input-lg" placeholder="Password" required/>
+      </div>
+      <div id="password2Group">
+        <input type="password" name="password2" value="" class="form-control input-lg" placeholder="Confirm Password" required/>
+      </div>
       {% include 'auth_app/includes/birth_date.html' %}
       {% include 'auth_app/includes/gender.html' %}
       <br/>

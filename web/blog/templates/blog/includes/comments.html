@@ -1,28 +1,57 @@
 <!-- the comment box -->
 {% load blog_filter%}
+
 <div class="well">
   <h4><i class="fa fa-paper-plane-o"></i> Leave a Comment:</h4>
-  <form role="form">
+  <form role="form"  action='{% url 'blog:comment-list' %}' method="post" id="formReview" >
+    {% csrf_token %}
+    <input type="hidden" name="parent" id="contactparent" value="">
+    <input type="hidden" name="article" value="{{ id }}">
+    {% if user.is_authenticated %}
+    <input type="hidden" name="author"  value="{{ user.email }}">
+
+    {% else %}
+    <div class="col-6 col-sm-5 form-group">
+      <label for="author"> Email: </label>
+      <input type="email" class="form-control" name="author" id="author" value="" placeholder="" required>
+    </div>
+    {% endif %}
     <div class="form-group">
-      <textarea class="form-control" rows="3"></textarea>
+      <br><br clear="left">
+      <label for="author"> Text: </label>
+      <textarea class="form-control" rows="3" name="content" id="contactcomment" ></textarea>
     </div>
     <button type="submit" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
   </form>
 </div>
 <hr>
+<style type="text/css">
+<!--
+.tab { margin-left: 40px; }
+-->
+</style>
 <!-- the comments -->
 {% for comment in comments %}
 <h3><i class="fa fa-comment"></i> {{ comment.author }}:
   <small> {{ comment.updated|timefilter  }}</small>
 </h3>
 <p>{{ comment.content }}</p>
-  <button type="submit" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
+  <button type="submit" class="btn btn-primary btn-sm" href="#formReview" onclick="addReview('{{ comment.author }}',
+  '{{ comment.id }}')"><i class="fa fa-reply"></i> Answer</button>
+
   {% for child in comment.child %}
-    <h3><i class="fa fa-comment"></i> {{ child.author }}:
+    <h3 class="tab"><i class="fa fa-comment"></i> {{ child.author }}:
       <small> {{ child.updated|timefilter  }}</small>
     </h3>
-    <p>{{ child.content }}</p>
+    <p class="tab">{{ child.content }}</p>
+
+
   {% endfor %}
 {% endfor %}
 
-
+  <script>
+  function addReview(author, id) {
+      document.getElementById("contactparent").value = id;
+      document.getElementById("contactcomment").innerText = author + ', ';
+    }
+  </script>

@@ -5,7 +5,7 @@ from random import sample
 
 
 def categories(request):
-    categories = Category.objects.all()[:5]
+    categories = Category.objects.filter(promoted=0)[:5]
     # print(categories)
     # list_categories = [x.__str__() for x in categories]
     # list_categories = sample(list_categories, 7)

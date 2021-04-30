@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework.reverse import reverse_lazy
 from django.utils.safestring import mark_safe
 from . import managers
-from .choices import ArticleStatus
+from .choices import ArticleStatus, CategoryLevel
 
 User = get_user_model()
 
@@ -14,6 +14,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='parent_set', blank=True, null=True)
+    promoted = models.PositiveSmallIntegerField(choices=CategoryLevel.choices, default=CategoryLevel.BEGIN)
     objects = models.Manager()
 
     def __str__(self):
@@ -84,6 +85,10 @@ class Comment(models.Model):
     class Meta:
         verbose_name = _('Comment')
         verbose_name_plural = _('Comments')
+        ordering = ('-created', )
 
     def __str__(self) -> str:
         return f'{self.id}, {self.author}, {self.content}'
+
+    def save(self, **kwargs):
+        return super().save(**kwargs)

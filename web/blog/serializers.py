@@ -19,7 +19,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = (
-            'id', 'author', 'content', 'child', 'updated', 'article',
+            'id', 'author', 'content', 'child', 'updated', 'article', 'parent',
         )
         ref_name = "Comment_Article"
 
@@ -73,7 +73,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('title', 'url', 'author', 'category', 'created', 'updated', 'comments_count', 'image')
+        fields = ('id', 'title', 'url', 'author', 'category', 'created', 'updated', 'comments_count', 'image')
 
 
 class FullArticleSerializer(ArticleSerializer):

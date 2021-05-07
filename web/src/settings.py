@@ -26,6 +26,8 @@ SUPERUSER_PASSWORD = os.environ.get('SUPERUSER_PASSWORD', 'tester26')
 
 MICROSERVICE_TITLE = os.environ.get('MICROSERVICE_TITLE', 'Template')
 
+FRONTEND_SITE = 'http://localhost:8008'
+
 REDIS_URL = os.environ.get('REDIS_URL')
 
 USE_HTTPS = int(os.environ.get('USE_HTTPS', 0))
@@ -48,10 +50,10 @@ EMAIL_HOST = os.environ.get("EMAIL_HOST")
 EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 465))
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
-DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_DEFAULT")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 EMAIL_TIMEOUT = 15
 EMAIL_USE_SSL = int(os.environ.get("EMAIL_USE_SSL", 0))
-EMAIL_USE_TLS = int(os.environ.get("EMAIL_USE_TLS", 1))
+EMAIL_USE_TLS = int(os.environ.get("EMAIL_USE_TLS", 0))
 
 ENABLE_RENDERING = int(os.environ.get('ENABLE_RENDERING', 1))
 
@@ -120,7 +122,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',

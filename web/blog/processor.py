@@ -11,5 +11,3 @@ def categories(request):
     # list_categories = sample(list_categories, 7)
     # print(list_categories)
     return {'categories': categories}
-
-

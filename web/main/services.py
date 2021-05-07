@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from auth_app.utils import get_activate_key
 from main.decorators import except_shell
 from src.celery import app
+from auth_app.tasks import test, sent_verify_email
 
 User = get_user_model()
 
@@ -10,7 +11,7 @@ User = get_user_model()
 class CeleryService:
 
     @staticmethod
-    def send_password_reset(self, data: dict):
+    def send_password_reset(data: dict):
         pass
 
     @staticmethod
@@ -23,7 +24,7 @@ class CeleryService:
                 'activate_url': key,
             }
         }
-        print(kwargs)
+        sent_verify_email.delay(**kwargs)
 
 
 class UserService:

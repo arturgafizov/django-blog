@@ -3,6 +3,8 @@
 
 {% block container %}
 
+<p>We have sent an e-mail to you for verification. Follow the link provided to finalize the signup
+  process. Please contact us if you do not receive it within a few minutes</p>
 
 <div  id="verifyConfirm" data-href="{% url 'auth_app:api_sign_up_verify' %}">
 
@@ -12,6 +14,3 @@
 {% endblock container %}
 
 
-{% block jquery %}
-$.getScript('{% static 'auth_app/js/verifyConfirm.js' %}');
-{% endblock %}

@@ -50,6 +50,8 @@ function signUp(event){
         data:formData,
         success:function(data){
             console.log(data, 'success')
+            let url = form.data('href')
+            window.location.href=url
         },
         error: function (data) {
               error_process(data);

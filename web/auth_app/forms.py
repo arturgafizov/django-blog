@@ -41,4 +41,4 @@ class PassResetForm(PasswordResetForm):
                 'reset_url': url,
             }
         }
-        CeleryService.send_password_reset(data=data)
+        CeleryService.send_password_reset(data)

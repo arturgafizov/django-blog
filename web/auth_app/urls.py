@@ -20,15 +20,16 @@ urlpatterns += [
     path('sign-in/', views.LoginView.as_view(), name='api_login'),
     path('sign-up/', views.SignUpView.as_view(), name='api_sign_up'),
     path('sign-up/verify/', views.VerifyEmailView.as_view(), name='api_sign_up_verify'),
-    path('password/reset/', views.PasswordResetView.as_view()),
-    path('password/reset/confirm/', views.PasswordResetConfirmView.as_view()),
+    path('password/reset/', views.PasswordResetView.as_view(), name='api_forgot_password'),
+    path('password/reset/confirm/', views.PasswordResetConfirmView.as_view(), name='api_password_reset_confirm'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
 ]
 
 urlpatterns += router.urls
 
 urlpatterns += [
-    path('password-reset/<uidb64>/<token>/', TemplateView.as_view(), name='password_reset_confirm'),
+    path('password-reset/<uidb64>/<token>/', TemplateView.as_view(template_name='auth_app/link_password_confirm.html'),
+         name='password_reset_confirm'),
     path('verify-email/<key>/', TemplateView.as_view(template_name='auth_app/email_confirm.html'),
          name='account_verification'),
 ]
@@ -42,5 +43,7 @@ if settings.ENABLE_RENDERING:
         path('password-recovery/', t_views.PasswordRecoveryView.as_view(), name='password_recovery'),
         path('verify-sent/', TemplateAPIView.as_view(template_name='auth_app/verification_sent.html'),
              name='verification_sent'),
+        path('password-reset-sent/', TemplateAPIView.as_view(template_name='auth_app/password_reset_sent.html'),
+             name='reset_email_sent'),
 
     ]

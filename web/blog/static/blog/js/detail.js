@@ -15,23 +15,23 @@ function leaveComment(event){
     let url=form.attr('action')
     let method=form.attr('method')
     console.log(url, method)
-//    $.ajax({
-//        url: url,
-//        type: method,
-//        data: data,
-//        success: function (data){
-//            console.log('success', data)
-//            location.reload()
-//        },
-//        error: function (data){
-//            console.log('error', data)
-//        },
-//    })
-    $.post('/action', {query: 'test'}, function(data) {
-    console.log(data); // ответ от сервера
+    $.ajax({
+        url: url,
+        type: method,
+        data: data,
+        success: function (data){
+            console.log('success', data)
+            location.reload()
+        },
+        error: function (data){
+            console.log('error', data)
+        },
     })
-    .success(function() { console.log('Успешное выполнение'); })
-    .error(function(jqXHR) { console.log('Ошибка выполнения'); })
-    .complete(function() { console.log('Завершение выполнения'); });
+//    $.post('/action', {query: 'test'}, function(data) {
+//    console.log(data); // ответ от сервера
+//    })
+//    .success(function() { console.log('Успешное выполнение'); })
+//    .error(function(jqXHR) { console.log('Ошибка выполнения'); })
+//    .complete(function() { console.log('Завершение выполнения'); });
 
 }

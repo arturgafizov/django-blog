@@ -1,10 +1,12 @@
 import logging
+
 from django.utils.translation import gettext_lazy as _
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import GenericAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, renderers
 from rest_framework.viewsets import ModelViewSet
 from main.pagination import DefaultPagination
 from rest_framework.status import HTTP_201_CREATED
@@ -13,7 +15,8 @@ from .services import BlogService
 from . import serializers
 from .filters import ArticleFilter
 
-from .models import Comment, Category
+from .models import Comment, Category, Article
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,8 +36,26 @@ class CategoryViewSet(ViewSet):
         # return Category.objects.all()
 
 
+class ArticlePageNumberPagination(PageNumberPagination):
+    page_size = 2
+    results_field = 'results'
+    max_page_size = 100
+    page_size_query_param = 'page_size'
+
+    def render(self, data, *args, **kwargs):
+        if not isinstance(data, list):
+            data = data.get(self.results_field, [])
+        return super(ArticlePageNumberPagination, self).render(data, *args, **kwargs)
+
+    def get_paginated_response(self, data):
+        response = super().get_paginated_response(data)
+        response.data.update(self.get_html_context())
+        return response
+
+
 class ArticleViewSet(ViewSet):
     filterset_class = ArticleFilter
+    pagination_class = ArticlePageNumberPagination
 
     def get_template_name(self):
         if self.action == 'list':

@@ -38,6 +38,8 @@ INTERNAL_IPS = []
 
 ADMIN_URL = os.environ.get('ADMIN_URL', 'admin')
 
+ADMIN_EMAILS = ['art05xxx@rambler.ru', ]
+
 SWAGGER_URL = os.environ.get('SWAGGER_URL')
 
 API_KEY_HEADER = os.environ.get('API_KEY_HEADER')

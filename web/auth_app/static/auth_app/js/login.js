@@ -1,7 +1,9 @@
 $(function () {
   // $(document).on("click", "a.login", login);
   $('#loginForm').submit(login);
+  $('#forgotPasswordForm').submit(forgotPassword);
 });
+
 
 function login(e) {
   let form = $(this);
@@ -20,7 +22,31 @@ function login(e) {
       $("#passwordGroup").append(
         '<div class="help-block">' + data.responseJSON.email + "</div>"
       );
-
     }
   })
+}
+
+
+
+function forgotPassword (event) {
+    console.log('click')
+    event.preventDefault()
+    let form=$(this);
+    let formData=form.serialize()
+    console.log(formData)
+    $.ajax({
+      url: form.attr("action"),
+      type: "POST",
+      data:formData,
+      success:function(data){
+          console.log(data, 'success')
+          },
+      error: function (data) {
+          console.log(data);
+          $("#emailForgotGroup").addClass("has-error");
+          $("#emailForgotGroup").append(
+            '<div class="help-block">' + data.responseJSON.email + "</div>"
+          );
+          },
+    })
 }

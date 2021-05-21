@@ -21,7 +21,3 @@ class FeedbackSerializer(serializers.ModelSerializer):
         # CeleryService.send_email_admin_contact(**validated_data)
         CeleryService.send_email_user_contact(**validated_data)
         return super().create(validated_data)
-
-
-
-

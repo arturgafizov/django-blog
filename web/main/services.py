@@ -47,4 +47,3 @@ class UserService:
     @except_shell((User.DoesNotExist,))
     def get_user(email):
         return User.objects.get(email=email)
-

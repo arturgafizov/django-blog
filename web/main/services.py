@@ -4,11 +4,25 @@ from auth_app.utils import get_activate_key
 from main.decorators import except_shell
 from src.celery import app
 from auth_app.tasks import test, sent_verify_email, sent_password_reset
+from main.tasks import sent_email_user, send_information_email
 
 User = get_user_model()
 
 
 class CeleryService:
+
+    @staticmethod
+    def send_email_admin_contact(data: dict):
+        print(data)
+        pass
+        # send_information_email(**data)
+
+    @staticmethod
+    def send_email_user_contact(**kwargs):
+        print(kwargs)
+        kwargs.pop('file', None)
+        kwargs['content'] = {'message': kwargs['content']}
+        sent_email_user.delay(**kwargs)
 
     @staticmethod
     def send_password_reset(data: dict):
@@ -33,3 +47,4 @@ class UserService:
     @except_shell((User.DoesNotExist,))
     def get_user(email):
         return User.objects.get(email=email)
+

@@ -22,16 +22,16 @@
       {% endif %}
       <textarea class="form-control" name="content" placeholder="How can we help you?"
                 style="height:150px;"></textarea><br/>
-      <input class="btn btn-primary" type="submit" value="Send"/><br/><br/>
       <div class="file-upload">
       <label>
-      <input type="file" name="file" onchange="getFileName ();" id="uploaded-file">
+        <input type="file" name="file" onchange="getFileName ();" id="uploaded-file"/>
 
       <span>Выберите файл</span>
-
       </label>
-      </div>
+
+      </div><br/>
       <div id="file-name"></div>
+        <input class="btn btn-primary" type="submit" value="Send"/><br/><br/>
     </form>
   </div>
   <div class="col-md-4">
@@ -59,3 +59,19 @@
   </div>
 </div>
 {% endblock container %}
+
+{% block jquery %}
+$.getScript('{% static 'contact_us/js/sent_file.js' %}');
+{% endblock %}
+
+<!--<script>-->
+<!--  function getFileName () {-->
+
+<!--      var file = document.getElementById ('uploaded-file').value;-->
+
+<!--      file = file.replace (/\\/g, «/»).split ('/').pop ();-->
+
+<!--      document.getElementById ('file-name').innerHTML = 'Имя файла: ' + file;-->
+
+<!--    }-->
+<!--</script>-->

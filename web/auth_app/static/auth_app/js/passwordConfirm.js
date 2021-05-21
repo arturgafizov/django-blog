@@ -6,6 +6,28 @@ $(function(){
     $('#passwordConfirmForm').submit(verifyPassword);
 });
 
+const error_class_name = "has-error"
+
+function error_process(data) {
+  $(".help-block").remove()
+  console.log('error_process')
+  let groups = ['#new_passwordGroup1', '#new_passwordGroup2']
+  for (let group of groups) {
+    $(group).removeClass(error_class_name);
+  }
+  if (data.responseJSON.password1) {
+    help_block("#new_passwordGroup1", data.responseJSON.password)
+  }
+  if (data.responseJSON.password2) {
+    help_block("#new_passwordGroup2", data.responseJSON.password2)
+  }
+}
+function help_block(group, variable) {
+  $(group).addClass(error_class_name);
+  $(group).append('<div class="help-block">' + variable + "</div>");
+}
+
+
 function verifyPassword(event) {
     event.preventDefault();
     let form=$(this);
@@ -30,7 +52,13 @@ function verifyPassword(event) {
             window.location.href=url
         },
         error: function (data) {
-            console.log(data);
-            }
+            $("#new_passwordGroup1").addClass("has-error");
+            $("#new_passwordGroup1").append(
+              '<div class="help-block">' + data.responseJSON.new_password1 + "</div>");
+            $("#new_passwordGroup2").addClass("has-error");
+            $("#new_passwordGroup2").append(
+              '<div class="help-block">' + data.responseJSON.new_password2 + "</div>");
+//              error_process(data);
+          }
        })
 }

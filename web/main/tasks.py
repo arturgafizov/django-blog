@@ -35,7 +35,7 @@ def send_email(email_message):
 @app.task
 def sent_email_user(**kwargs):
     print(kwargs)
-    html_template = get_template('contact_us/index.html')
+    html_template = get_template('email/email_request_feedback.html')
     subject = 'Information on your request'
     render_content = html_template.render(kwargs.get('content'))
     to_email = kwargs.get('to_email')

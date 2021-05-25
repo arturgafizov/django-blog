@@ -18,6 +18,7 @@ class FeedbackSerializer(serializers.ModelSerializer):
             validated_data['name'] = user.full_name()
             validated_data['email'] = user.email
 
-        # CeleryService.send_email_admin_contact(**validated_data)
+        instance = super().create(validated_data)
+        CeleryService.send_email_admin_contact(instance, self.context.get('request'), **validated_data, )
         CeleryService.send_email_user_contact(**validated_data)
-        return super().create(validated_data)
+        return instance

@@ -23,7 +23,7 @@ def send_information_email(
         for attach in attach_file:
             email_message.attach_file(attach)
     html_email = loader.render_to_string(html_email_template_name, context)
-    email_message.attach_alternative(html_email, 'contact_us/index.html')
+    email_message.attach_alternative(html_email, 'text/html')
     send_email(email_message)
 
 

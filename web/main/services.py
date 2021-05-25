@@ -1,28 +1,43 @@
 from django.contrib.auth import get_user_model
+from rest_framework.reverse import reverse_lazy
 
 from auth_app.utils import get_activate_key
 from main.decorators import except_shell
 from src.celery import app
 from auth_app.tasks import test, sent_verify_email, sent_password_reset
 from main.tasks import sent_email_user, send_information_email
-
+from django.conf import settings
 User = get_user_model()
 
 
 class CeleryService:
 
     @staticmethod
-    def send_email_admin_contact(data: dict):
-        print(data)
-        pass
-        # send_information_email(**data)
+    def send_email_admin_contact(instance, request, **kwargs,):
+        kwargs.pop('file', None)
+        kwargs['content'] = {'message': kwargs['content']}
+        print('admin', kwargs)
+        subject = 'User feedback'
+        html_email_template_name = 'email/email_request_feedback.html'
+        url = reverse_lazy(f'admin:{instance._meta.app_label}_feedback_change', args=(instance.id, ))
+        print(dir(instance))
+        context = {
+            'name': kwargs.get('name'),
+            'link_admin': request.build_absolute_uri(url)
+                   }
+        to_email = settings.ADMIN_EMAILS
+        send_information_email.delay(subject, html_email_template_name, context, to_email)
 
     @staticmethod
     def send_email_user_contact(**kwargs):
-        print(kwargs)
         kwargs.pop('file', None)
         kwargs['content'] = {'message': kwargs['content']}
-        sent_email_user.delay(**kwargs)
+        print('admin', kwargs)
+        subject = 'User feedback'
+        html_email_template_name = 'email/email_request_feedback.html'
+        context = {'name': kwargs.get('name')}
+        to_email = kwargs.get('email')
+        send_information_email.delay(subject, html_email_template_name, context, to_email)
 
     @staticmethod
     def send_password_reset(data: dict):

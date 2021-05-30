@@ -53,7 +53,7 @@ jobs:
           with:
             command: |
               cd ${{ env.PROJECT_PATH }}
-              docker-compose -f prod.yml -f prod.certbot.yml up -d --build
+              sudo docker-compose -f prod.yml -f prod.certbot.yml up -d --build
             host: ${{ secrets.AWS_HOST }}
             username: ${{ secrets.AWS_USER }}
             privateKey: ${{ secrets.AWS_PRIVATE_KEY}}

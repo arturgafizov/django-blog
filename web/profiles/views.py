@@ -4,6 +4,7 @@ from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
 from rest_framework.parsers import FileUploadParser
+from rest_framework.permissions import AllowAny
 
 from . models import Profile
 from . serializers import (ProfileSerializer, UploadAvatarUserSerializer)
@@ -32,6 +33,7 @@ class UploadAvatarView(GenericAPIView):
 class ProfileRetrieveView(GenericAPIView):
     template_name = 'profile/profile_detail.html'
     serializer_class = ProfileSerializer
+    permission_classes = (AllowAny,)
 
     def get_object(self):
         obj = get_object_or_404(self.get_queryset(), user=self.request.user)

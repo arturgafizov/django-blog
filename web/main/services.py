@@ -18,9 +18,9 @@ class CeleryService:
         kwargs['content'] = {'message': kwargs['content']}
         print('admin', kwargs)
         subject = 'User feedback'
-        html_email_template_name = 'email/email_request_feedback.html'
+        html_email_template_name = 'email/email_admin_feedback.html'
         url = reverse_lazy(f'admin:{instance._meta.app_label}_feedback_change', args=(instance.id, ))
-        print(dir(instance))
+
         context = {
             'name': kwargs.get('name'),
             'link_admin': request.build_absolute_uri(url)
@@ -32,7 +32,7 @@ class CeleryService:
     def send_email_user_contact(**kwargs):
         kwargs.pop('file', None)
         kwargs['content'] = {'message': kwargs['content']}
-        print('admin', kwargs)
+        print('user', kwargs)
         subject = 'User feedback'
         html_email_template_name = 'email/email_request_feedback.html'
         context = {'name': kwargs.get('name')}
@@ -41,19 +41,44 @@ class CeleryService:
 
     @staticmethod
     def send_password_reset(data: dict):
-        sent_password_reset.delay(**data)
+        data.pop('file', None)
+        data['content'] = data.get('content')
+        print(data)
+        subject = 'Confirm your password'
+        html_email_template_name = 'auth_app/email/email_password_reset.html'
+        context = {'content': data['content']}
+        print(context)
+        to_email = data.get('to_email')
+        send_information_email.delay(subject, html_email_template_name, context, to_email)
+        # sent_password_reset.delay(**data)
 
     @staticmethod
-    def send_email_confirm(user):
+    def send_email_confirm(user, **kwargs):
         key = get_activate_key(user)
-        kwargs = {
-            'to_email': user.email,
-            'content': {
-                'user': user.get_full_name(),
-                'activate_url': key,
-            }
+        kwargs.pop('file', None)
+        kwargs['content'] = {'message': ''}
+        print('user', kwargs)
+        subject = 'Confirm your email'
+        html_email_template_name = 'auth_app/email/email_verify.html'
+        context = {
+            'user': user.get_full_name(),
+            'activate_url': key,
         }
-        sent_verify_email.delay(**kwargs)
+        to_email = user.email,
+        send_information_email.delay(subject, html_email_template_name, context, to_email)
+
+
+    # @staticmethod
+    # def send_email_confirm(user):
+    #     key = get_activate_key(user)
+    #     kwargs = {
+    #         'to_email': user.email,
+    #         'content': {
+    #             'user': user.get_full_name(),
+    #             'activate_url': key,
+    #         }
+    #     }
+    #     sent_verify_email.delay(**kwargs)
 
 
 class UserService:

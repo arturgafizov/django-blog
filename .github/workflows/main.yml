@@ -8,8 +8,8 @@ env:
   EB_ENVIROMENT_NAME   : "MyDjango-env"
   DEPLOY_PACKAGE_NAME  : "django_app_${{ github.sha }}.zip"
   AWS_REGION_NAME      : "US East (Ohio)"
-  
-# Controls when the action will run. 
+
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -21,7 +21,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  my_ci_part:
+  testing:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -30,9 +30,11 @@ jobs:
       - name: Git clone our repo
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Create ZIP deployment package 
-      - run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+        run: |
+          pwd
+          ls -la
+#      # Runs a single command using the runners shell
+#      - name: Create ZIP deployment package
+#      - run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
 
 

@@ -28,7 +28,7 @@ services:
       # If You need to connect to PostgreSql in localhost, just use host.docker.internal instead of localhost
     healthcheck:
       test: curl --fail -s http://localhost:8000$$HEALTH_CHECK_URL || exit 1
-      interval: 1m30s
+      interval: 5m00s
       timeout: 3s
       retries: 3
   db:

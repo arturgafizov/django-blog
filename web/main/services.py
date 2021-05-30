@@ -7,24 +7,25 @@ from src.celery import app
 from auth_app.tasks import test, sent_verify_email, sent_password_reset
 from main.tasks import sent_email_user, send_information_email
 from django.conf import settings
+
 User = get_user_model()
 
 
 class CeleryService:
 
     @staticmethod
-    def send_email_admin_contact(instance, request, **kwargs,):
+    def send_email_admin_contact(instance, request, **kwargs, ):
         kwargs.pop('file', None)
         kwargs['content'] = {'message': kwargs['content']}
         print('admin', kwargs)
         subject = 'User feedback'
         html_email_template_name = 'email/email_admin_feedback.html'
-        url = reverse_lazy(f'admin:{instance._meta.app_label}_feedback_change', args=(instance.id, ))
+        url = reverse_lazy(f'admin:{instance._meta.app_label}_feedback_change', args=(instance.id,))
 
         context = {
             'name': kwargs.get('name'),
             'link_admin': request.build_absolute_uri(url)
-                   }
+        }
         to_email = settings.ADMIN_EMAILS
         send_information_email.delay(subject, html_email_template_name, context, to_email)
 
@@ -66,7 +67,6 @@ class CeleryService:
         }
         to_email = user.email,
         send_information_email.delay(subject, html_email_template_name, context, to_email)
-
 
     # @staticmethod
     # def send_email_confirm(user):

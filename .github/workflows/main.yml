@@ -29,12 +29,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Git clone our repo      
+      - name: Install flake8
         run: |
-          pwd
+          python -m pip install flake8 --upgrade pip
           ls -la
-#      # Runs a single command using the runners shell
-#      - name: Create ZIP deployment package
-#      - run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+      - name: Run flake8
+        run: |
+          cd web
+          flake8 .
 
 

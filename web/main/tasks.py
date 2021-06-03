@@ -30,5 +30,3 @@ def send_information_email(
 @smtp_shell
 def send_email(email_message):
     email_message.send()
-
-

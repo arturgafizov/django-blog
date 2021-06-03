@@ -32,15 +32,3 @@ def send_email(email_message):
     email_message.send()
 
 
-@app.task
-def sent_email_user(**kwargs):
-    print(kwargs)
-    html_template = get_template('email/email_request_feedback.html')
-    subject = 'Information on your request'
-    render_content = html_template.render(kwargs.get('content'))
-    to_email = kwargs.get('to_email')
-    send_mail(subject=subject,
-              message='You will be contacted later by the site administration upon your request',
-              from_email=None,
-              recipient_list=[to_email, ],
-              html_message=render_content)

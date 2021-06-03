@@ -22,31 +22,3 @@ def sent_email(user_id):
         [user.email],
     )
     return {'status': True}
-
-
-@app.task
-def sent_verify_email(**kwargs):
-    print(kwargs)
-    html_template = get_template('auth_app/email/email_verify.html')
-    subject = 'Confirm your email'
-    render_content = html_template.render(kwargs.get('content'))
-    to_email = kwargs.get('to_email')
-    send_mail(subject=subject,
-              message='',
-              from_email=None,
-              recipient_list=[to_email, ],
-              html_message=render_content)
-
-
-@app.task
-def sent_password_reset(**kwargs):
-    print(kwargs)
-    html_template = get_template('auth_app/email/email_password_reset.html')
-    subject = 'Confirm your password'
-    render_content = html_template.render(kwargs.get('content'))
-    to_email = kwargs.get('to_email')
-    send_mail(subject=subject,
-              message='',
-              from_email=None,
-              recipient_list=[to_email, ],
-              html_message=render_content)

@@ -24,7 +24,7 @@ class AuthApiTestCase(APITestCase):
     def setUpTestData(cls):
         print('setUpTestData')
         data = {
-            'email':'art05xxx@rambler.ru',
+            'email': 'art05xxx@rambler.ru',
             'password': make_password('string1985'),
         }
         cls.user = User.objects.create(**data, is_active=False)

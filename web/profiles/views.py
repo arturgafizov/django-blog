@@ -33,7 +33,6 @@ class UploadAvatarView(GenericAPIView):
 class ProfileRetrieveView(GenericAPIView):
     template_name = 'profile/profile_detail.html'
     serializer_class = ProfileSerializer
-    permission_classes = (AllowAny,)
 
     def get_object(self):
         obj = get_object_or_404(self.get_queryset(), user=self.request.user)

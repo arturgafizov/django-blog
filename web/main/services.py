@@ -74,3 +74,9 @@ class UserService:
     @except_shell((User.DoesNotExist,))
     def get_user(email):
         return User.objects.get(email=email)
+
+    @staticmethod
+    def make_user_active(user):
+        user.is_active = True
+        user.save(update_fields=['is_active'])
+        return user

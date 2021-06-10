@@ -13,3 +13,4 @@ web/.cache
 web/media/*
 venv
 modules.txt
+htmlcov

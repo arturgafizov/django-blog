@@ -1,5 +1,5 @@
 import logging
-
+from main.views import TemplateAPIView
 from django.utils.translation import gettext_lazy as _
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.generics import GenericAPIView
@@ -115,3 +115,16 @@ class CommentViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class NewArticleView(TemplateAPIView):
+
+    def get(self, request, *args, **kwargs):
+        serializer = serializers.CategorySerializer(self.get_queryset(), many=True)
+        data = {
+            'categories': serializer.data
+        }
+        return Response(data)
+
+    def get_queryset(self):
+        return Category.objects.all()

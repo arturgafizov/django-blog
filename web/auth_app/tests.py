@@ -100,3 +100,38 @@ class AuthApiTestCase(APITestCase):
         self.assertEqual(len(mail.outbox), 1)
         # print('mail', mail.outbox[0])
         # print(mail.outbox[0].message())
+        url_conf = reverse_lazy('auth_app:api_password_reset_confirm')
+        string = str(mail.outbox[0].message())
+        pattern = r'(http?://[^\"\s]+)'
+        result = re.findall(pattern, string)
+        activate = result[0]
+        activate = activate.split('/')
+        # print(activate)
+        data = {
+            "new_password1": "string1986",
+            "new_password2": "string1986",
+            "uid": activate[5],
+            "token": activate[6],
+        }
+        # print(activate[5], activate[6])
+        response = self.client.post(url_conf, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        print(response.data)
+
+    def test_logout(self):
+        url = reverse_lazy('auth_app:api_login')
+        data = {
+            'email': settings.SUPERUSER_EMAIL,
+            'password': settings.SUPERUSER_PASSWORD,
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        url = reverse_lazy('profiles:profile_detail')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        url = reverse_lazy('auth_app:logout')
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        url = reverse_lazy('profiles:profile_detail')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

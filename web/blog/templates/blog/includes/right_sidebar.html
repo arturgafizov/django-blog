@@ -1,5 +1,9 @@
 <div class="col-lg-4">
+
   <div class="well">
+    {% if user.is_authenticated %}
+      <a href="{% url 'blog:new-post' %}" >Create new article</a>
+    {% endif %}
     <h4><i class="fa fa-search"></i> Blog Search...</h4>
     <div class="input-group">
       <input type="text" class="form-control">
@@ -13,6 +17,7 @@
   </div>
   <!-- /well -->
   <div class="well">
+
     <h4><i class="fa fa-tags"></i> Popular Tags:</h4>
     <div class="row">
       <div class="col-lg-6">

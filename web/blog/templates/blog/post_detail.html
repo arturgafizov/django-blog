@@ -47,11 +47,9 @@
     <hr>
     <!-- the comment box -->
     {% include 'blog/includes/comments.html' %}
-  </div>
 
-  {% block right_sidebar %}
-  {{ block.super }}
-  {% endblock right_sidebar %}
+  </div>
+  {% include 'blog/includes/right_sidebar.html' %}
 </div>
 {% endblock container %}
 

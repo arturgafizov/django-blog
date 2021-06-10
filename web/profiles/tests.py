@@ -16,7 +16,7 @@ User = get_user_model()
 
 class ProfileApiTestCase(APITestCase):
     def test_forbidden_access(self):
-        url = reverse_lazy('profile-detail')
+        url = reverse_lazy('profiles:profile_detail')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -28,6 +28,6 @@ class ProfileApiTestCase(APITestCase):
         }
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
-        url = reverse_lazy('profile-detail')
+        url = reverse_lazy('profiles:profile_detail')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

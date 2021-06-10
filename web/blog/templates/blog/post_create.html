@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+{% load static main blog_filter%}
+
+{% block head %}{% endblock head %}
+
+{% block container %}
+
+<div>
+  <form method="post" action="{% url 'blog:post-list' %}" id="createArticleForm">
+      <select name="category_id">
+          {% for category in categories %}
+              <option value="{{category.id}}"> {{ category.name }} </option>
+          {% endfor %}
+      </select>
+      <input type="text" placeholder="Article title" class="form-control" name="title">
+      <textarea placeholder="Content" class="form-control" name="content"></textarea>
+
+      <input type="file"  name="image">
+
+  </form>
+</div>
+
+
+{% endblock container %}
+
+
+{% block jquery %}
+$.getScript('{% static 'blog/js/post_create.js' %}');
+{% endblock %}

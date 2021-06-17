@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from main.serializers import UserSerializer
 from .models import Category, Article, Comment
+from .services import BlogService
 
 
 class ParentCommentSerializer(serializers.ModelSerializer):
@@ -74,6 +75,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = ('id', 'title', 'url', 'author', 'category', 'created', 'updated', 'comments_count', 'image')
+        read_only_fields = ('author', 'comments_count', 'url')
 
 
 class FullArticleSerializer(ArticleSerializer):
@@ -87,3 +89,20 @@ class FullArticleSerializer(ArticleSerializer):
 
     class Meta(ArticleSerializer.Meta):
         fields = ArticleSerializer.Meta.fields + ('content', 'comments',)
+
+
+class CreateArticleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Article
+        fields = ('title', 'category', 'image', 'content')
+
+    def create(self, validated_data):
+        validated_data['author'] = self.context.get('request').user
+        return super().create(validated_data)
+
+    def validate_title(self, title: str):
+        BlogService.is_article_slug_exist(title)
+        if BlogService.is_article_slug_exist(title):
+            raise serializers.ValidationError("This title already exists")
+        return title

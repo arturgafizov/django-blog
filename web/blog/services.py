@@ -14,3 +14,8 @@ class BlogService:
     @staticmethod
     def get_active_articles():
         return Article.objects.filter(status=ArticleStatus.ACTIVE).annotate(comments_count=Count('comment_set'))
+
+    @staticmethod
+    def is_article_slug_exist(title):
+        slug = Article.get_slug(title)
+        return Article.objects.filter(slug=slug).exists()

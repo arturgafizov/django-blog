@@ -1,29 +1,70 @@
 {% extends "blog/base.html" %}
-{% load static main blog_filter%}
+{% load static %}
 
-{% block head %}{% endblock head %}
+{% block head %}
+
+    <meta charset="UTF-8">
+    <title>without bootstrap</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <link rel="stylesheet" type="text/scc" href="{% static 'blog/css/sent_file.css' %}">
+{% endblock head %}
 
 {% block container %}
 
 <div>
   <form method="post" action="{% url 'blog:post-list' %}" id="createArticleForm">
-      <select name="category_id">
+
+    <div id="categoryGroup" class="form-group">
+      <select name="category">
           {% for category in categories %}
+              <option value="none" hidden="">Выберите категорию</option>
               <option value="{{category.id}}"> {{ category.name }} </option>
           {% endfor %}
       </select>
-      <input type="text" placeholder="Article title" class="form-control" name="title">
-      <textarea placeholder="Content" class="form-control" name="content"></textarea>
+    </div>
+    <div id="titleGroup" >
+      <input type="text" placeholder="Article title" class="form-control" name="title" style="width: 60%">
+    </div>
 
-      <input type="file"  name="image">
+    <div id="contentGroup" >
+        <textarea id="summernote" placeholder="Content" class="form-control" name="content" cols="40" rows="3"></textarea>
+    </div>
 
+    <div id="fileGroup" >
+        <div class="selectButton">
+          <input type="file" class="form-control" name="image" id="upload" />
+        </div>
+    </div>
+      <br>
+    <div >
+      <button type="submit" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
+    </div>
   </form>
 </div>
 
+<script>
+      $('#summernote').summernote({
+        placeholder: 'Content',
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+</script>
 
-{% endblock container %}
-
+  {% endblock container %}
 
 {% block jquery %}
 $.getScript('{% static 'blog/js/post_create.js' %}');
 {% endblock %}
+

@@ -10,6 +10,7 @@ from rest_framework import status, renderers
 from rest_framework.viewsets import ModelViewSet
 from main.pagination import DefaultPagination
 from rest_framework.status import HTTP_201_CREATED
+from rest_framework.parsers import JSONParser, MultiPartParser
 
 from .services import BlogService
 from . import serializers
@@ -56,6 +57,7 @@ class ArticlePageNumberPagination(PageNumberPagination):
 class ArticleViewSet(ViewSet):
     filterset_class = ArticleFilter
     pagination_class = ArticlePageNumberPagination
+    parser_classes = (MultiPartParser, JSONParser, )
 
     def get_template_name(self):
         if self.action == 'list':
@@ -66,6 +68,9 @@ class ArticleViewSet(ViewSet):
     def get_serializer_class(self):
         if self.action == 'list':
             return serializers.ArticleSerializer
+        elif self.action == 'create':
+            print(self.request.data)
+            return serializers.CreateArticleSerializer
         return serializers.FullArticleSerializer
 
     def get_queryset(self):

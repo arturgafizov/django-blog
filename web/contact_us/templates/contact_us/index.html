@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block active_contact %}class="active"{% endblock active_contact %}
 
-{% load static %}
+{% load static i18n %}
 
 {% block header %}
 {% include 'includes/header.html'  with selected='contact_us' %}
@@ -13,25 +13,25 @@
 <h3 class="text-center">Contact us</h3><br/>
 
 <div class="row">
-  <div class="col-md-8">
-    <form action="{% url 'contact_us:feedback' %}" method="post" enctype="multipart/form-data">
+  <div class="col-md-8" >
+    <form action="{% url 'contact_us:feedback' %}" method="post" enctype="multipart/form-data" id="feedBackForm">
       {% csrf_token %}
       {% if not user.is_authenticated %}
-      <input class="form-control" name="name" placeholder="Name..."/><br/>
-      <input class="form-control" name="email" placeholder="E-mail..."/><br/>
+      <input class="form-control" name="name" placeholder="Name..." id="nameForm"/><br/>
+      <input class="form-control" name="email" placeholder="E-mail..." id="mailForm"/><br/>
       {% endif %}
       <textarea class="form-control" name="content" placeholder="How can we help you?"
-                style="height:150px;"></textarea><br/>
+                style="height:150px;" id="textForm"></textarea><br/>
       <div class="file-upload">
       <label>
-        <input type="file" name="file" onchange="getFileName ();" id="uploaded-file"/>
+        <input type="file" name="file"  id="uploaded-file"/>
 
       <span>Выберите файл</span>
       </label>
 
       </div><br/>
       <div id="file-name"></div>
-        <input class="btn btn-primary" type="submit" value="Send"/><br/><br/>
+        <input class="btn btn-primary" type="submit" value="{% trans 'Send' %}"/><br/><br/>
     </form>
   </div>
   <div class="col-md-4">

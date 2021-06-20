@@ -3,7 +3,7 @@
 
 <div class="well">
   <h4><i class="fa fa-paper-plane-o"></i> Leave a Comment:</h4>
-  <form role="form"  action='{% url 'blog:comment-list' %}' method="post" id="formReview" >
+  <form role="form"  action="{% url 'blog:comment-list' %}" method="post" id="formReview" >
     {% csrf_token %}
     <input type="hidden" name="parent" id="contactparent" value="">
     <input type="hidden" name="article" value="{{ id }}">

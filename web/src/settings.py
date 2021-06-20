@@ -213,6 +213,8 @@ LOCALE_PATHS = (
 
 LANGUAGES = (
     ('en', _('English')),
+    ('ru', _('Russian')),
+    ('de', _('German')),
 )
 
 ROSETTA_MESSAGES_SOURCE_LANGUAGE_CODE = LANGUAGE_CODE

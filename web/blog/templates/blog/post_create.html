@@ -15,8 +15,8 @@
 {% block container %}
 
 <div>
-  <form method="post" action="{% url 'blog:post-list' %}" id="createArticleForm">
-
+  <form method="post" action="{% url 'blog:post-list' %}" id="createArticleForm" enctype="multipart/form-data">
+    {% csrf_token %}
     <div id="categoryGroup" class="form-group">
       <select name="category">
           {% for category in categories %}
@@ -35,7 +35,7 @@
 
     <div id="fileGroup" >
         <div class="selectButton">
-          <input type="file" class="form-control" name="image" id="upload" />
+          <input type="file" class="form-control" name="image" id="upload" required/>
         </div>
     </div>
       <br>

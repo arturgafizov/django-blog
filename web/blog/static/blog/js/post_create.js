@@ -5,42 +5,52 @@ $(function () {
 
 });
 
+const error_class_name = "has-error"
+
+function error_process(data) {
+  $(".help-block").remove()
+  console.log('error_process')
+  let groups = ['#categoryGroup', '#titleGroup', '#contentGroup', '#fileGroup']
+  for (let group of groups) {
+    $(group).removeClass(error_class_name);
+  }
+  if (data.responseJSON.category) {
+    help_block("#categoryGroup", data.responseJSON.category)
+  }
+  if (data.responseJSON.title) {
+    help_block("#titleGroup", data.responseJSON.title)
+  }
+  if (data.responseJSON.content) {
+    help_block("#contentGroup", data.responseJSON.content)
+  }
+  if (data.responseJSON.file) {
+    help_block("#fileGroup", data.responseJSON.file)
+  }
+
+}
+function help_block(group, variable) {
+  $(group).addClass(error_class_name);
+  $(group).append('<div class="help-block">' + variable + "</div>");
+}
 
 function postCreate(event){
-//    console.log('post_create')
     event.preventDefault()
     let form=$(this)
-//    console.log(form)
-    data = form.serialize()
-    console.log(data)
-//    var data = $('#createArticleForm').data();
-    let dataList = data.split("&");
-    console.log(dataList)
-    let keys = Object.keys(dataList)
-    console.log(keys)
-    let formData = new FormData()
-    console.log(form[0].files)
-    formData.append('image', form[0].files[0])
-//    formData.append('title',data['title']
+    let formData = new FormData(form[0])
     let url=form.attr('action')
     let method=form.attr('method')
-//    console.log(url, method)
     console.log(formData)
     $.ajax({
         url: url,
         type: method,
-        data: data,
+        data: formData,
         contentType: false,
         processData: false,
         success: function (data){
             console.log('success', data)
         },
         error: function (data){
-            console.log('error', data)
-            $("#categoryGroup").addClass("has-error");
-            $("#titleGroup").addClass("has-error");
-            $("#contentGroup").addClass("has-error");
-            $("#fileGroup").addClass("has-error");
+            error_process(data);
         },
     })
 }

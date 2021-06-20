@@ -33,6 +33,9 @@ function profile(event) {
             $("#first_nameGroup").addClass("has-error");
             $("#last_nameGroup").addClass("has-error");
             $("#mobileGroup").addClass("has-error");
+            $("#mobileGroup").append(
+              '<div class="help-block">' + data.responseJSON.mobile + "</div>"
+            );
             $("#emailGroup").addClass("has-error");
             $("#emailGroup").append(
               '<div class="help-block">' + data.responseJSON.email + "</div>"

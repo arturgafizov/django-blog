@@ -1,0 +1,36 @@
+{% load static %}
+{% load i18n %}
+<hr>
+<div class="container bootstrap snippet">
+    <div class="row">
+  		<div class="col-sm-10"><h1>{{ profile.full_name }} </h1></div>
+    	<div class="col-sm-2"><a href="/profiles/" class="pull-right"><img
+        title="profile image" class="img-circle img-responsive"
+        src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"></a></div>
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+
+
+
+      <div class="text-center">
+        <img src="{{ profile.avatar }}" class="avatar img-circle img-thumbnail" alt="avatar" id="avatar">
+        <h6>{% blocktrans %} 'Upload a different photo... {% endblocktrans %}</h6>
+
+            <input type="file" class="text-center center-block file-upload" name="avatar" id="avatarUpload"
+                   data-href="{% url 'profiles:avatar_upload' %}">
+
+      </div></hr><br>
+
+
+      {% include 'profile/includes/column_website.html' %}
+      {% include 'profile/includes/column_activity.html' %}
+      {% include 'profile/includes/column_social_media.html' %}
+
+        </div><!--/col-3-->
+
+
+<!--    <script src="{% static 'profile/upload_avatar.js' %}"></script>-->
+{% block script %}
+ {% static 'profile/upload_avatar.js' %}
+{% endblock script %}

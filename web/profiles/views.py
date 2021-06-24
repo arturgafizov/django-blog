@@ -5,14 +5,14 @@ from rest_framework.generics import GenericAPIView
 from rest_framework import status
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import AllowAny
-
+from . import serializers
 from . models import Profile
 from . serializers import (ProfileSerializer, UploadAvatarUserSerializer)
 
 
 class UploadAvatarView(GenericAPIView):
     serializer_class = UploadAvatarUserSerializer
-    parser_classes = [FileUploadParser, ]
+    # parser_classes = [FileUploadParser, ]
 
     def get_object(self):
         obj = get_object_or_404(self.get_queryset(), user=self.request.user)
@@ -32,7 +32,12 @@ class UploadAvatarView(GenericAPIView):
 
 class ProfileRetrieveView(GenericAPIView):
     template_name = 'profile/profile_detail.html'
-    serializer_class = ProfileSerializer
+
+    def get_serializer_class(self):
+        print(self.request.method)
+        if self.request.method == 'PUT':
+            return serializers.UpdateUserProfileSerializer
+        return serializers.ProfileSerializer
 
     def get_object(self):
         obj = get_object_or_404(self.get_queryset(), user=self.request.user)
@@ -48,9 +53,9 @@ class ProfileRetrieveView(GenericAPIView):
         return Response({'profile': serializer.data}, status=status.HTTP_200_OK)
 
     def put(self, request):
+        print(request.data)
         profile = self.get_object()
-        serializer = self.get_serializer(profile)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'profile': serializer.data}, status=status.HTTP_200_OK)
-        return Response({'profile': serializer.data}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(profile, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)

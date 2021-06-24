@@ -18,6 +18,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=200)
     avatar = models.ImageField(null=True, blank=True, upload_to=avatar_upload_patch)
     objects = models.Manager()
+    website = models.CharField(null=True, max_length=200)
 
     def __str__(self) -> str:
         return f'{self.user} {self.id}'

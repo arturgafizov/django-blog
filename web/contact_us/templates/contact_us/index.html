@@ -20,13 +20,15 @@
       <input class="form-control" name="name" placeholder="Name..." id="nameForm"/><br/>
       <input class="form-control" name="email" placeholder="E-mail..." id="mailForm"/><br/>
       {% endif %}
+      <div id="textForm">
       <textarea class="form-control" name="content" placeholder="How can we help you?"
-                style="height:150px;" id="textForm"></textarea><br/>
-      <div class="file-upload">
+                style="height:150px;" ></textarea><br/>
+      </div>
+      <div class="file-upload" id="uploaded-file">
       <label>
-        <input type="file" name="file"  id="uploaded-file"/>
+        <input type="file" name="file"  />
 
-      <span>Выберите файл</span>
+      <span>Select a file</span>
       </label>
 
       </div><br/>

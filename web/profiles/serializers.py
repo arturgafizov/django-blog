@@ -2,6 +2,10 @@ from rest_framework import serializers
 
 from .models import Profile
 from main.serializers import UserSerializer
+from django.contrib.auth import get_user_model
+from phonenumber_field.serializerfields import PhoneNumberField
+
+User = get_user_model()
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -9,7 +13,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('user', 'mobile', 'avatar', 'location',)
+        fields = ('user', 'mobile', 'avatar', 'location', 'website')
         # depth = 1
         extra_kwargs = {
             'avatar': {'read_only': False},
@@ -17,7 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        print(data)
+        # print(data)
         user = data.pop('user')
         data.update(user)
         return data
@@ -43,3 +47,21 @@ class UploadAvatarUserSerializer(serializers.Serializer):
         self.instance.old_avatar_delete()
         self.instance.avatar = self.validated_data.get('avatar')
         self.instance.save()
+
+
+class UpdateUserProfileSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+
+    class Meta:
+        model = Profile
+        fields = ('first_name', 'last_name', 'mobile', 'location')
+
+    def update(self, profile, validated_data):
+        print(validated_data)
+        user_data = validated_data.pop('user')
+        user = profile.user
+        for key, value in user_data.items():
+            setattr(user, key, value)
+        user.save()
+        return super().update(profile, validated_data)

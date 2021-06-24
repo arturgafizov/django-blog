@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-20 08:54+0000\n"
-"PO-Revision-Date: 2021-06-20 09:05+0000\n"
+"POT-Creation-Date: 2021-06-22 19:25+0000\n"
+"PO-Revision-Date: 2021-06-22 19:26+0000\n"
 "Last-Translator: b'Super Admin <test@test.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -79,45 +79,45 @@ msgstr ""
 
 #: blog/choices.py:11
 msgid "Advanced"
-msgstr ""
+msgstr "Продвинутый"
 
 #: blog/choices.py:12
 msgid "Middle"
-msgstr ""
+msgstr "Средний "
 
 #: blog/choices.py:13
 msgid "Begin"
-msgstr ""
+msgstr "Начальный"
 
 #: blog/models.py:24
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
 #: blog/models.py:25
 msgid "Categories"
-msgstr ""
+msgstr "Категории"
 
 #: blog/models.py:68
 msgid "Article"
-msgstr ""
+msgstr "Статья"
 
 #: blog/models.py:69
 msgid "Articles"
-msgstr ""
+msgstr "Статьи"
 
 #: blog/models.py:90
 msgid "Comment"
-msgstr ""
+msgstr "Комментарий"
 
 #: blog/models.py:91
 msgid "Comments"
-msgstr ""
+msgstr "Комментарии"
 
 #: contact_us/models.py:14
 msgid "Feedback"
 msgstr "Обратная связь"
 
-#: contact_us/templates/contact_us/index.html:34
+#: contact_us/templates/contact_us/index.html:36
 msgid "Send"
 msgstr "Отправить"
 
@@ -128,7 +128,7 @@ msgstr "Спасибо за обращение! С вами свяжутся п�
 
 #: main/admin.py:32
 msgid "Personal info"
-msgstr ""
+msgstr "Личная информация"
 
 #: main/admin.py:33
 msgid "Secrets"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: main/models.py:11
 msgid "Email address"
-msgstr ""
+msgstr "Электронная почта"
 
 #: main/models.py:19
 msgid "User"
@@ -165,6 +165,14 @@ msgstr "Пользователь"
 #: main/models.py:20
 msgid "Users"
 msgstr "Пользователи"
+
+#: profiles/templates/profile/includes/column_profile.html:18
+msgid " 'Upload a different photo... "
+msgstr "Загрузите другую фотографию"
+
+#: profiles/templates/profile/includes/column_profile.html:22
+msgid "Save"
+msgstr "Сохранить"
 
 #: src/settings.py:215
 msgid "English"
@@ -176,19 +184,48 @@ msgstr ""
 
 #: src/settings.py:217
 msgid "German"
-msgstr ""
+msgstr "Немецкий"
+
+#: templates/includes/footer.html:48
+msgid "Categories:"
+msgstr "Категории"
+
+#: templates/includes/footer.html:57
+#| msgid "Contact"
+msgid "Contact:"
+msgstr "Контакты"
+
+#: templates/includes/footer.html:58
+msgid " Have a question or feedback? Contact me! "
+msgstr "У вас есть вопросы или отзывы? Свяжитесь со мной!"
+
+#: templates/includes/header.html:18
+msgid "Home"
+msgstr "Домашний"
+
+#: templates/includes/header.html:21
+msgid "Posts"
+msgstr "Посты"
+
+#: templates/includes/header.html:24
+msgid "Contact"
+msgstr "Контакты"
+
+#: templates/includes/header.html:27
+msgid "About"
+msgstr "О нас"
 
 #: templates/includes/header_sign_status.html:9
 msgid "Hello"
-msgstr ""
+msgstr "Привет"
 
 #: templates/includes/header_sign_status.html:13
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
 #: templates/includes/header_sign_status.html:15
 msgid "Log off"
-msgstr ""
+msgstr "Выход из системы"
 
 #: templates/includes/header_sign_status.html:20
 msgid "Sign in"
@@ -204,7 +241,7 @@ msgstr ""
 
 #: templates/index.html:15 templates/index.html:25 templates/index.html:33
 msgid "Learn more"
-msgstr ""
+msgstr "Узнать больше"
 
 #: templates/index.html:20
 msgid "Lorem."

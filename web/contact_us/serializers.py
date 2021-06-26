@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from django.utils.translation import gettext_lazy as _
 from main.services import CeleryService
 from .models import Feedback
 
@@ -27,6 +27,6 @@ class FeedbackSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         if not user.is_authenticated:
             if not attrs.get('name') or not attrs.get('email'):
-                raise serializers.ValidationError('Name and email required!')
+                raise serializers.ValidationError(_('Name and email required!'))
         print(attrs)
         return attrs

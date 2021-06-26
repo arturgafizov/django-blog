@@ -4,6 +4,27 @@ $(function () {
   $('#forgotPasswordForm').submit(forgotPassword);
 });
 
+const error_class_name = "has-error"
+
+function error_process(data) {
+  $(".help-block").remove()
+  console.log('error_process')
+  let groups = ['#emailGroup', '#passwordGroup']
+  for (let group of groups) {
+    $(group).removeClass(error_class_name);
+  }
+  if (data.responseJSON.email) {
+    help_block("#emailGroup", data.responseJSON.email)
+  }
+  if (data.responseJSON.password) {
+    help_block("#passwordGroup", data.responseJSON.password)
+  }
+
+}
+function help_block(group, variable) {
+  $(group).addClass(error_class_name);
+  $(group).append('<div class="help-block">' + variable + "</div>");
+}
 
 function login(e) {
   let form = $(this);
@@ -17,11 +38,7 @@ function login(e) {
       location.reload();
     },
     error: function (data) {
-      $("#emailGroup").addClass("has-error");
-      $("#passwordGroup").addClass("has-error");
-      $("#passwordGroup").append(
-        '<div class="help-block">' + data.responseJSON.email + "</div>"
-      );
+      error_process(data);
     }
   })
 }

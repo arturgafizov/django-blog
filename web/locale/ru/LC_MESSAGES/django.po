@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-22 19:25+0000\n"
-"PO-Revision-Date: 2021-06-22 19:26+0000\n"
+"POT-Creation-Date: 2021-06-26 07:06+0000\n"
+"PO-Revision-Date: 2021-06-26 07:06+0000\n"
 "Last-Translator: b'Super Admin <test@test.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -33,7 +33,7 @@ msgstr ""
 
 #: auth_app/serializers.py:20
 msgid "Entered email or password is incorrect"
-msgstr ""
+msgstr " Введите правильную почту или пароль"
 
 #: auth_app/serializers.py:39
 msgid "User is already registered with this e-mail address."
@@ -117,7 +117,11 @@ msgstr "Комментарии"
 msgid "Feedback"
 msgstr "Обратная связь"
 
-#: contact_us/templates/contact_us/index.html:36
+#: contact_us/serializers.py:30
+msgid "Name and email required!"
+msgstr "Имя и почта обязательны для заполнения"
+
+#: contact_us/templates/contact_us/index.html:40
 msgid "Send"
 msgstr "Отправить"
 
@@ -166,13 +170,9 @@ msgstr "Пользователь"
 msgid "Users"
 msgstr "Пользователи"
 
-#: profiles/templates/profile/includes/column_profile.html:18
+#: profiles/templates/profile/includes/column_avatar.html:18
 msgid " 'Upload a different photo... "
 msgstr "Загрузите другую фотографию"
-
-#: profiles/templates/profile/includes/column_profile.html:22
-msgid "Save"
-msgstr "Сохранить"
 
 #: src/settings.py:215
 msgid "English"
@@ -191,7 +191,6 @@ msgid "Categories:"
 msgstr "Категории"
 
 #: templates/includes/footer.html:57
-#| msgid "Contact"
 msgid "Contact:"
 msgstr "Контакты"
 
@@ -257,3 +256,6 @@ msgstr ""
 #: templates/index.html:28
 msgid "Lorem"
 msgstr ""
+
+#~ msgid "Save"
+#~ msgstr "Сохранить"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-22 19:25+0000\n"
+"POT-Creation-Date: 2021-06-26 07:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,7 +116,11 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-#: contact_us/templates/contact_us/index.html:36
+#: contact_us/serializers.py:30
+msgid "Name and email required!"
+msgstr ""
+
+#: contact_us/templates/contact_us/index.html:40
 msgid "Send"
 msgstr ""
 
@@ -165,12 +169,8 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: profiles/templates/profile/includes/column_profile.html:18
+#: profiles/templates/profile/includes/column_avatar.html:18
 msgid " 'Upload a different photo... "
-msgstr ""
-
-#: profiles/templates/profile/includes/column_profile.html:22
-msgid "Save"
 msgstr ""
 
 #: src/settings.py:215

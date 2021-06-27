@@ -13,6 +13,8 @@ class ArticleAdmin(SummernoteModelAdmin):
     readonly_fields = ('created', 'updated')
     list_select_related = ('category', 'author')
     list_filter = ('status',)
+    list_editable = ('status', 'author', )
+    date_hierarchy = 'created'
 
 
 @admin.register(Category)

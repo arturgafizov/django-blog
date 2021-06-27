@@ -17,23 +17,27 @@
     <form action="{% url 'contact_us:feedback' %}" method="post" enctype="multipart/form-data" id="feedBackForm">
       {% csrf_token %}
       {% if not user.is_authenticated %}
-      <input class="form-control" name="name" placeholder="Name..." id="nameForm"/><br/>
-      <input class="form-control" name="email" placeholder="E-mail..." id="mailForm"/><br/>
-      {% endif %}
-      <div id="textForm">
-      <textarea class="form-control" name="content" placeholder="How can we help you?"
-                style="height:150px;" ></textarea><br/>
+      <div id="nameGroup" class="form-group">
+        <input type="text" class="form-control" name="name" placeholder="Name..." id="name"/><br/>
       </div>
-      <div class="file-upload" id="uploaded-file">
-      <label>
-        <input type="file" name="file"  />
+      <div id="mailGroup" class="form-group">
+        <input type="text" class="form-control" name="email" placeholder="E-mail..." id="mail"/><br/>
+      </div>
 
+      {% endif %}
+      <div id="contentGroup">
+      <textarea class="form-control" name="content" placeholder="How can we help you?"
+                style="height:150px;" id="content"></textarea><br/>
+      </div>
+      <div class="file-upload" id="fileGroup">
+      <label>
+        <input type="file" name="file"  id="file"/>
       <span>Select a file</span>
       </label>
 
       </div><br/>
       <div id="file-name"></div>
-        <input class="btn btn-primary" type="submit" value="{% trans 'Send' %}"/><br/><br/>
+        <input class="btn btn-primary" type="submit" value="{% trans 'Send' %}"  /><br/><br/>
     </form>
   </div>
   <div class="col-md-4">

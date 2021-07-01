@@ -1,10 +1,13 @@
-from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from rest_framework.renderers import TemplateHTMLRenderer
+from django.utils.translation import gettext_lazy as _
+from dj_rest_auth.serializers import PasswordChangeSerializer
+from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework import status
+from rest_framework.viewsets import GenericViewSet
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import AllowAny
+
 from . import serializers
 from . models import Profile
 from . serializers import (ProfileSerializer, UploadAvatarUserSerializer)
@@ -59,3 +62,16 @@ class ProfileRetrieveView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ProfileViewSet(GenericViewSet):
+
+    def get_serializer_class(self):
+        if self.action == 'change_password':
+            return PasswordChangeSerializer
+
+    def change_password(self, request):
+        serializer = self.get_serializer(request.user, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'detail': _('New password has been saved')})

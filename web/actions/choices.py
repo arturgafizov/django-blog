@@ -1,4 +1,5 @@
 from django.db.models import IntegerChoices, TextChoices
+from django.utils.translation import gettext_lazy as _
 
 
 class LikeStatus(IntegerChoices):
@@ -7,5 +8,5 @@ class LikeStatus(IntegerChoices):
 
 
 class LikeObjChoices(TextChoices):
-    ARTICLE = ('article', 'Article')
-    COMMENT = ('comment', 'Comment')
+    ARTICLE = ('article', _('Article'))
+    COMMENT = ('comment', _('Comment'))

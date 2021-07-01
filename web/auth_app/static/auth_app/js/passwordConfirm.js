@@ -15,11 +15,11 @@ function error_process(data) {
   for (let group of groups) {
     $(group).removeClass(error_class_name);
   }
-  if (data.responseJSON.password1) {
-    help_block("#new_passwordGroup1", data.responseJSON.password)
+  if (data.responseJSON.new_password1) {
+    help_block("#new_passwordGroup1", data.responseJSON.new_password1)
   }
-  if (data.responseJSON.password2) {
-    help_block("#new_passwordGroup2", data.responseJSON.password2)
+  if (data.responseJSON.new_password2) {
+    help_block("#new_passwordGroup2", data.responseJSON.new_password2)
   }
 }
 function help_block(group, variable) {
@@ -52,13 +52,13 @@ function verifyPassword(event) {
             window.location.href=url
         },
         error: function (data) {
-            $("#new_passwordGroup1").addClass("has-error");
-            $("#new_passwordGroup1").append(
-              '<div class="help-block">' + data.responseJSON.new_password1 + "</div>");
-            $("#new_passwordGroup2").addClass("has-error");
-            $("#new_passwordGroup2").append(
-              '<div class="help-block">' + data.responseJSON.new_password2 + "</div>");
-//              error_process(data);
+//            $("#new_passwordGroup1").addClass("has-error");
+//            $("#new_passwordGroup1").append(
+//              '<div class="help-block">' + data.responseJSON.new_password1 + "</div>");
+//            $("#new_passwordGroup2").addClass("has-error");
+//            $("#new_passwordGroup2").append(
+//              '<div class="help-block">' + data.responseJSON.new_password2 + "</div>");
+              error_process(data);
           }
        })
 }

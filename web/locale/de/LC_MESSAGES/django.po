@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-26 07:06+0000\n"
+"POT-Creation-Date: 2021-07-01 04:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: actions/choices.py:11 blog/models.py:68
+msgid "Article"
+msgstr ""
+
+#: actions/choices.py:12 blog/models.py:90
+msgid "Comment"
+msgstr ""
 
 #: auth_app/forms.py:32
 msgid "User does not exist with this email"
@@ -96,16 +104,8 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: blog/models.py:68
-msgid "Article"
-msgstr ""
-
 #: blog/models.py:69
 msgid "Articles"
-msgstr ""
-
-#: blog/models.py:90
-msgid "Comment"
 msgstr ""
 
 #: blog/models.py:91
@@ -169,19 +169,23 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: profiles/templates/profile/includes/column_avatar.html:18
+#: profiles/templates/profile/includes/column_avatar.html:17
 msgid " 'Upload a different photo... "
 msgstr ""
 
-#: src/settings.py:215
-msgid "English"
+#: profiles/views.py:77
+msgid "New password has been saved"
 msgstr ""
 
 #: src/settings.py:216
-msgid "Russian"
+msgid "English"
 msgstr ""
 
 #: src/settings.py:217
+msgid "Russian"
+msgstr ""
+
+#: src/settings.py:218
 msgid "German"
 msgstr ""
 

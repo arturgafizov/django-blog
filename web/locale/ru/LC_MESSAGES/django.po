@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-26 07:06+0000\n"
-"PO-Revision-Date: 2021-06-26 07:06+0000\n"
+"POT-Creation-Date: 2021-07-01 04:18+0000\n"
+"PO-Revision-Date: 2021-07-01 04:19+0000\n"
 "Last-Translator: b'Super Admin <test@test.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,6 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.9.5\n"
+
+#: actions/choices.py:11 blog/models.py:68
+msgid "Article"
+msgstr "Статья"
+
+#: actions/choices.py:12 blog/models.py:90
+msgid "Comment"
+msgstr "Комментарий"
 
 #: auth_app/forms.py:32
 msgid "User does not exist with this email"
@@ -97,17 +105,9 @@ msgstr "Категория"
 msgid "Categories"
 msgstr "Категории"
 
-#: blog/models.py:68
-msgid "Article"
-msgstr "Статья"
-
 #: blog/models.py:69
 msgid "Articles"
 msgstr "Статьи"
-
-#: blog/models.py:90
-msgid "Comment"
-msgstr "Комментарий"
 
 #: blog/models.py:91
 msgid "Comments"
@@ -170,19 +170,23 @@ msgstr "Пользователь"
 msgid "Users"
 msgstr "Пользователи"
 
-#: profiles/templates/profile/includes/column_avatar.html:18
+#: profiles/templates/profile/includes/column_avatar.html:17
 msgid " 'Upload a different photo... "
 msgstr "Загрузите другую фотографию"
 
-#: src/settings.py:215
-msgid "English"
+#: profiles/views.py:77
+msgid "New password has been saved"
 msgstr ""
 
 #: src/settings.py:216
-msgid "Russian"
+msgid "English"
 msgstr ""
 
 #: src/settings.py:217
+msgid "Russian"
+msgstr ""
+
+#: src/settings.py:218
 msgid "German"
 msgstr "Немецкий"
 

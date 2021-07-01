@@ -13,5 +13,5 @@ class LikeDislikeSerializer(serializers.Serializer):
     object_id = serializers.IntegerField()
 
     def save(self):
-        user = self.context['request'].user
+        # user = self.context['request'].user
         print(self.validated_data)

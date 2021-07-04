@@ -26,3 +26,11 @@ class ContactUsApiTestCase(APITestCase):
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.data)
         print(response.data)
+
+        data = {
+            'name': 'Admin',
+            'email': 'test@mail.com',
+            'content': ''
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST, response.data)

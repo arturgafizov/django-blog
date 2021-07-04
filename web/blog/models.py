@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
@@ -6,6 +7,7 @@ from rest_framework.reverse import reverse_lazy
 from django.utils.safestring import mark_safe
 from . import managers
 from .choices import ArticleStatus, CategoryLevel
+from actions.models import LikeDislike
 
 User = get_user_model()
 
@@ -43,6 +45,7 @@ class Article(models.Model):
     status = models.PositiveSmallIntegerField(choices=ArticleStatus.choices, default=ArticleStatus.INACTIVE)
     image = models.ImageField(upload_to='articles/', blank=True, default='no-image-available.jpg')
     objects = models.Manager()
+    votes = GenericRelation(LikeDislike, related_query_name='articles')
 
     @property
     def short_title(self):
@@ -85,6 +88,7 @@ class Comment(models.Model):
     updated = models.DateTimeField(auto_now=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='parent_set', blank=True, null=True)
     objects = models.Manager()
+    votes = GenericRelation(LikeDislike, related_query_name='comments')
 
     class Meta:
         verbose_name = _('Comment')

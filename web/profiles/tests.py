@@ -31,3 +31,35 @@ class ProfileApiTestCase(APITestCase):
         url = reverse_lazy('profiles:profile_detail')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        url = reverse_lazy('profiles:profile_detail')
+
+        data = {
+            'first_name': 'admin2',
+            'last_name': 'AA2',
+            'mobile': '+79066669999',
+            'location': 'london',
+        }
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        print(response.data)
+
+    def test_change_password(self):
+        url = reverse_lazy('auth_app:api_login')
+        data = {
+            'email': settings.SUPERUSER_EMAIL,
+            'password': settings.SUPERUSER_PASSWORD,
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+
+        url = reverse_lazy('profiles:change_password')
+
+        data = {
+            'old_password': settings.SUPERUSER_PASSWORD,
+            'new_password1': 'string2121',
+            'new_password2': 'string2121',
+        }
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response.data)
+        print(response.data)

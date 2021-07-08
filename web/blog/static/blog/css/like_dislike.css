@@ -1,0 +1,63 @@
+/* Latest compiled and minified CSS included as External Resource*/
+
+/* Optional theme */
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap-theme.min.css');
+
+body {
+    margin: 10px;
+}
+
+.social-like, .social-dislike {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    /*width: 48%;*/
+    background-color: #03A9F4;
+    color: #fff;
+    cursor: pointer;
+    display:inline-block;
+
+}
+
+.social-like:hover, .social-dislike:hover {
+  text-decoration:none;
+  color:white;
+}
+
+.social-like:active, .social-dislike:active {
+  background-color: #3299CD;
+}
+
+.social-like:active .count, .social-dislike:active .dislike {
+  background-color: #3299CD;
+}
+
+
+.social-like {
+    border-top-left-radius: 5px;
+}
+
+.social-dislike {
+  margin-left: 20px;
+    border-top-right-radius: 5px;
+}
+
+.count, .like, .dislike {
+    padding:10px;
+}
+
+.count, .dislike {
+  display:inline;
+    background-color: #03A9F4;
+    border-radius: 50%;
+    font-size:12px;
+}
+
+.dislike {
+    margin-left: -10px;
+}
+
+.count {
+    margin-right: -10px;
+}
+

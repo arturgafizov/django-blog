@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from typing import Union
 from django.contrib.auth import get_user_model
 from main.serializers import UserSerializer
 from .choices import LikeObjChoices, LikeStatus
@@ -20,7 +20,7 @@ class LikeDislikeSerializer(serializers.Serializer):
         print(self.validated_data)
         model = self.validated_data['model']
         object_id = self.validated_data['object_id']
-        vote = self.validated_data['vote']
+        vote: int = self.validated_data['vote']
         if model == LikeObjChoices.ARTICLE:
             obj: Article = BlogService.get_article(object_id)
         else:
@@ -30,4 +30,17 @@ class LikeDislikeSerializer(serializers.Serializer):
         if not like_dislike:
             obj.votes.create(user=user, vote=vote)
         else:
-            pass
+            print('This my', vote)
+            if like_dislike.vote == vote:
+                like_dislike.delete()
+
+            else:
+                like_dislike.vote = vote
+                like_dislike.save(update_fields=['vote'])
+        return self.response_data(obj)
+
+    def response_data(self, obj: Union[Article, Comment]) -> dict:
+        return {
+            'like_count': obj.likes(),
+            'dislike_count': obj.dislikes(),
+        }

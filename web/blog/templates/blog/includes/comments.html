@@ -1,5 +1,9 @@
 <!-- the comment box -->
 {% load blog_filter%}
+{% load static main %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'blog/css/like_dislike.css' %}">
+{% endblock head %}
 
 <div class="well">
   <h4><i class="fa fa-paper-plane-o"></i> Leave a Comment:</h4>
@@ -38,7 +42,15 @@
 <p>{{ comment.content }}</p>
   <button type="submit" class="btn btn-primary btn-sm" href="#formReview" onclick="addReview('{{ comment.author }}',
   '{{ comment.id }}')"><i class="fa fa-reply"></i> Answer</button>
-
+  <a class="social-like" >
+      <span class="like"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+      <span class="count" >15</span>
+  </a>
+  &nbsp;
+  <a class="social-dislike" >
+      <span class="dislike" >10</span>
+      <span class="like"><i class="glyphicon glyphicon-thumbs-down"></i></span>
+  </a>
   {% for child in comment.child %}
     <h3 class="tab"><i class="fa fa-comment"></i> {{ child.author }}:
       <small> {{ child.updated|timefilter  }}</small>

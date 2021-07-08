@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from . import managers
 from .choices import ArticleStatus, CategoryLevel
 from actions.models import LikeDislike
+from actions.choices import LikeStatus
 
 User = get_user_model()
 
@@ -46,6 +47,12 @@ class Article(models.Model):
     image = models.ImageField(upload_to='articles/', blank=True, default='no-image-available.jpg')
     objects = models.Manager()
     votes = GenericRelation(LikeDislike, related_query_name='articles')
+
+    def likes(self) -> int:
+        return self.votes.filter(vote=LikeStatus.LIKE).count()
+
+    def dislikes(self) -> int:
+        return self.votes.filter(vote=LikeStatus.DISLIKE).count()
 
     @property
     def short_title(self):

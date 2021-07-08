@@ -5,7 +5,7 @@
 
 {% block container %}
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-8"><br><br><br>
 
     <!-- the actual blog post: title/author/date/content -->
     <h1><a href="">{{ title }}</a></h1>
@@ -16,7 +16,15 @@
     <p><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">Bootstrap</span></a> <a
       href=""><span class="badge badge-info">Web</span></a> <a href=""><span class="badge badge-info">CSS</span></a>
       <a href=""><span class="badge badge-info">HTML</span></a></p>
-
+      <a class="social-like" id="articleLike" data-href="{% url 'actions:like_dislike' %}" data-vote=1 data-model="article" data-id="{{ id }}">
+          <span class="like"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+          <span class="count" id="likeCount">{{ likes }}</span>
+      </a>
+      &nbsp;
+      <a class="social-dislike" id="articleDislike" data-href="{% url 'actions:like_dislike' %}" data-vote=-1 data-model="article" data-id="{{ id }}">
+          <span class="count" id="dislikeCount">{{ dislikes }}</span>
+          <span class="like"><i class="glyphicon glyphicon-thumbs-down"></i></span>
+      </a>
     <hr>
     <img src="{{ image }}" width="400" height="200" alt="image" class="image img-responsive">
     <hr>
@@ -40,4 +48,5 @@
 
 {% block jquery %}
 $.getScript('{% static 'blog/js/detail.js' %}');
+$.getScript('{% static 'blog/js/like_dislike.js' %}');
 {% endblock %}

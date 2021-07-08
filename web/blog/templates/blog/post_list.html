@@ -2,11 +2,14 @@
 {% load static main %}
 {% block title %}Blog Post{% endblock title%}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'blog/css/like_dislike.css' %}">
+{% endblock head %}
 {% block container %}
 
 
 <div class="row">
-  <div class="col-lg-8">
+  <div class="col-lg-8"><br><br><br><br>
     {% for article in results %}
     <div class="row">
       <div class="col-md-12 post">
@@ -27,12 +30,19 @@
             <i class="icon-share"></i><a href="#">39 Shares</a> |
             <span class="glyphicon glyphicon-tags"></span> Tags: <a href="#">
             <span class="label label-info">Snipp</span></a> <a href="#">
-            <span class="label label-info">Bootstrap</span></a> <a href="#">
             <span class="label label-info">UI</span></a> <a href="#">
-            <span class="label label-info">growth</span></a>
+            <a class="social-like" id="articleLike">
+                <span class="like"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+                <span class="count" >{{ article.likes }}</span>
+            </a>
+            &nbsp;
+            <a class="social-dislike" id="articleDislike">
+                <span class="dislike" >{{ article.dislikes }}</span>
+                <span class="like"><i class="glyphicon glyphicon-thumbs-down"></i></span>
+            </a>
           </div>
         </div>
-        <div class="row post-content">
+        <div class="row post-content"><br>
           <div class="col-md-3">
             <a href="#">
               <img

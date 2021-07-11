@@ -97,6 +97,12 @@ class Comment(models.Model):
     objects = models.Manager()
     votes = GenericRelation(LikeDislike, related_query_name='comments')
 
+    def likes(self) -> int:
+        return self.votes.filter(vote=LikeStatus.LIKE).count()
+
+    def dislikes(self) -> int:
+        return self.votes.filter(vote=LikeStatus.DISLIKE).count()
+
     class Meta:
         verbose_name = _('Comment')
         verbose_name_plural = _('Comments')

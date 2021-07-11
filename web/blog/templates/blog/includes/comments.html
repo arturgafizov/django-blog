@@ -39,18 +39,18 @@
 <h3><i class="fa fa-comment"></i> {{ comment.author }}:
   <small> {{ comment.updated|timefilter  }}</small>
 </h3>
-<p>{{ comment.content }}</p>
+<p>{{ comment.content }} </p>
   <button type="submit" class="btn btn-primary btn-sm" href="#formReview" onclick="addReview('{{ comment.author }}',
   '{{ comment.id }}')"><i class="fa fa-reply"></i> Answer</button>
-  <a class="social-like" >
+  <button class="social-like commentLike"  id='commentLike' data-href="{% url 'actions:like_dislike' %}" data-vote=1 data-model="comment" data-id="{{ comment.id }}">
       <span class="like"><i class="glyphicon glyphicon-thumbs-up"></i></span>
-      <span class="count" >15</span>
-  </a>
+      <span class="count" id="likeCountComment">{{ comment.likes }}</span>
+  </button>
   &nbsp;
-  <a class="social-dislike" >
-      <span class="dislike" >10</span>
+  <button class="social-dislike commentDislike"  id='commentDislike' data-href="{% url 'actions:like_dislike' %}" data-vote=-1 data-model="comment" data-id="{{ comment.id }}">
+      <span class="count" id="dislikeCountComment">{{ comment.dislikes }}</span>
       <span class="like"><i class="glyphicon glyphicon-thumbs-down"></i></span>
-  </a>
+  </button>
   {% for child in comment.child %}
     <h3 class="tab"><i class="fa fa-comment"></i> {{ child.author }}:
       <small> {{ child.updated|timefilter  }}</small>

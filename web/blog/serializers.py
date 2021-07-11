@@ -5,6 +5,7 @@ from .models import Category, Article, Comment
 from .services import BlogService
 from actions.choices import LikeIconStatus, LikeStatus
 
+
 class ParentCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment

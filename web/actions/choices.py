@@ -10,3 +10,9 @@ class LikeStatus(IntegerChoices):
 class LikeObjChoices(TextChoices):
     ARTICLE = ('article', _('Article'))
     COMMENT = ('comment', _('Comment'))
+
+
+class LikeIconStatus(TextChoices):
+    LIKED = ('liked', 'Liked')
+    DISLIKED = ('disliked', 'Disliked')
+    EMPTY = ('empty', 'Empty')

@@ -3,7 +3,7 @@ from rest_framework import serializers
 from main.serializers import UserSerializer
 from .models import Category, Article, Comment
 from .services import BlogService
-
+from actions.choices import LikeIconStatus, LikeStatus
 
 class ParentCommentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,7 +20,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = (
-            'id', 'author', 'content', 'child', 'updated', 'article', 'parent',
+            'id', 'author', 'content', 'child', 'updated', 'article', 'parent', 'likes', 'dislikes'
         )
         ref_name = "Comment_Article"
 
@@ -71,12 +71,24 @@ class ArticleSerializer(serializers.ModelSerializer):
     author = UserSerializer()
     category = CategorySerializer()
     comments_count = serializers.IntegerField()
+    like_status = serializers.SerializerMethodField(method_name='get_like_status')
 
     class Meta:
         model = Article
         fields = ('id', 'title', 'url', 'author', 'category', 'created', 'updated', 'comments_count', 'image',
-                  'likes', 'dislikes')
+                  'likes', 'dislikes', 'like_status')
         read_only_fields = ('author', 'comments_count', 'url')
+
+    def get_like_status(self, obj):
+        user = self.context['request'].user
+        if not user.is_authenticated:
+            return LikeIconStatus.EMPTY
+        like_obj = obj.votes.filter(user=user).first()
+        print(like_obj)
+        if like_obj:
+            print(like_obj.vote)
+            return LikeIconStatus.LIKED if like_obj.vote == LikeStatus.LIKE else LikeIconStatus.DISLIKED
+        return LikeIconStatus.EMPTY
 
 
 class FullArticleSerializer(ArticleSerializer):

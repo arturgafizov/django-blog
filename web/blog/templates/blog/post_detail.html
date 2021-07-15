@@ -18,13 +18,22 @@
       href=""><span class="badge badge-info">Web</span></a> <a href=""><span class="badge badge-info">CSS</span></a>
       <a href=""><span class="badge badge-info">HTML</span></a></p>
 
-      <button class="social-like" id="articleLike" data-href="{% url 'actions:like_dislike' %}" data-vote=1 data-model="article" data-id="{{ id }}">
+      <button
+         {% if like_status == 'liked' %}
+           style="background:blue"
+         {% endif  %}
+              class="social-like" id="articleLike"  data-href="{% url 'actions:like_dislike' %}" data-vote=1 data-model="article" data-id="{{ id }}">
           <span class="like"><i class="glyphicon glyphicon-thumbs-up"></i></span>
           <span class="count" id="likeCount">{{ likes }}</span>
       </button>
+
       &nbsp;
-      <button class="social-dislike" id="articleDislike" data-href="{% url 'actions:like_dislike' %}" data-vote=-1 data-model="article" data-id="{{ id }}">
-          <span class="count" id="dislikeCount">{{ dislikes }}</span>
+      <button
+         {% if like_status == 'disliked' %}
+           style="background:blue"
+         {% endif  %}
+              class="social-dislike" id="articleDislike" data-href="{% url 'actions:like_dislike' %}" data-vote=-1 data-model="article" data-id="{{ id }}">
+          <span class="dislike" id="dislikeCount">{{ dislikes }}</span>
           <span class="like"><i class="glyphicon glyphicon-thumbs-down"></i></span>
       </button>
     <hr>

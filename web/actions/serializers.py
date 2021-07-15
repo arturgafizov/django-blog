@@ -51,6 +51,6 @@ class LikeDislikeSerializer(serializers.Serializer):
 class FollowerSerializer(serializers.Serializer):
     to_user = serializers.IntegerField(min_value=1)
 
-    def save(self):
-        user = self.context['request'].user
-        to_user = self.validated_data['to_user']
+    # def save(self):
+    #     user = self.context['request'].user
+    #     to_user = self.validated_data['to_user']

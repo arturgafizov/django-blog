@@ -10,6 +10,10 @@ from blog.models import Article, Comment
 User = get_user_model()
 
 
+class PositiveIntegerField(serializers.IntegerField):
+    min_value = 1
+
+
 class LikeDislikeSerializer(serializers.Serializer):
     model = serializers.ChoiceField(choices=LikeObjChoices.choices)
     vote = serializers.ChoiceField(choices=LikeStatus.choices)
@@ -30,10 +34,8 @@ class LikeDislikeSerializer(serializers.Serializer):
         if not like_dislike:
             obj.votes.create(user=user, vote=vote)
         else:
-            print('This my', vote)
             if like_dislike.vote == vote:
                 like_dislike.delete()
-
             else:
                 like_dislike.vote = vote
                 like_dislike.save(update_fields=['vote'])
@@ -44,3 +46,11 @@ class LikeDislikeSerializer(serializers.Serializer):
             'like_count': obj.likes(),
             'dislike_count': obj.dislikes(),
         }
+
+
+class FollowerSerializer(serializers.Serializer):
+    to_user = serializers.IntegerField(min_value=1)
+
+    def save(self):
+        user = self.context['request'].user
+        to_user = self.validated_data['to_user']

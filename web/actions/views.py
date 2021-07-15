@@ -8,7 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from . import services
 from .models import LikeDislike
-from .serializers import LikeDislikeSerializer
+from .serializers import LikeDislikeSerializer, FollowerSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +18,16 @@ class LikeDislikeView(GenericAPIView):
 
     def get_queryset(self):
         return LikeDislike.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.save()
+        return Response(data, status=status.HTTP_201_CREATED)
+
+
+class FollowerView(GenericAPIView):
+    serializer_class = FollowerSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

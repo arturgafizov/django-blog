@@ -21,6 +21,8 @@
       <button
          {% if like_status == 'liked' %}
            style="background:blue"
+         {% elif  like_status == 'disliked' %}
+           style="background:#03A9F4"
          {% endif  %}
               class="social-like" id="articleLike"  data-href="{% url 'actions:like_dislike' %}" data-vote=1 data-model="article" data-id="{{ id }}">
           <span class="like"><i class="glyphicon glyphicon-thumbs-up"></i></span>
@@ -31,6 +33,8 @@
       <button
          {% if like_status == 'disliked' %}
            style="background:blue"
+         {% elif  like_status == 'liked' %}
+           style="background:#03A9F4"
          {% endif  %}
               class="social-dislike" id="articleDislike" data-href="{% url 'actions:like_dislike' %}" data-vote=-1 data-model="article" data-id="{{ id }}">
           <span class="dislike" id="dislikeCount">{{ dislikes }}</span>

@@ -42,13 +42,25 @@
 <p>{{ comment.content }} </p>
   <button type="submit" class="btn btn-primary btn-sm" href="#formReview" onclick="addReview('{{ comment.author }}',
   '{{ comment.id }}')"><i class="fa fa-reply"></i> Answer</button>
-  <button class="social-like commentLike"  id ="comLike" data-href="{% url 'actions:like_dislike' %}" data-vote=1 data-model="comment" data-id="{{ comment.id }}">
+  <button
+         {% if comment.likes == 1 %}
+           style="background:blue"
+         {% elif  comment.likes == 0 %}
+           style="background:#03A9F4"
+         {% endif  %}
+          class="social-like commentLike"  id ="comLike_{{ comment.id }}" data-href="{% url 'actions:like_dislike' %}" data-vote=1 data-model="comment" data-id="{{ comment.id }}">
       <span class="like"><i class="glyphicon glyphicon-thumbs-up"></i></span>
-      <span class="count" id="likeCountComment">{{ comment.likes }}</span>
+      <span class="count" id="likeCount_{{ comment.id }}">{{ comment.likes }}</span>
   </button>
   &nbsp;&nbsp;
-  <button class="social-dislike commentDislike"  id="comDislike" data-href="{% url 'actions:like_dislike' %}" data-vote=-1 data-model="comment" data-id="{{ comment.id }}">
-      <span class="dislike" id="dislikeCountComment">{{ comment.dislikes }}</span>
+  <button
+         {% if comment.dislikes == 1 %}
+           style="background:blue"
+         {% elif  comment.dislikes == 0 %}
+           style="background:#03A9F4"
+         {% endif  %}
+          class="social-dislike commentDislike"  id="comDislike_{{ comment.id }}" data-href="{% url 'actions:like_dislike' %}" data-vote=-1 data-model="comment" data-id="{{ comment.id }}">
+      <span class="dislike" id="dislikeCount_{{ comment.id }}">{{ comment.dislikes }}</span>
       <span class="like"><i class="glyphicon glyphicon-thumbs-down"></i></span>
   </button>
   {% for child in comment.child %}

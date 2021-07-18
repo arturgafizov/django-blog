@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static main %}
+
+{% block container %}
+
+{% for profile in results %}
+
+    <div class="row">
+          <div class="span12">
+          <ul class="thumbnails">
+                  <li class="span5 clearfix">
+                    <div class="thumbnail clearfix">
+                      <a href="{% url 'profiles:profile-detail' profile.id %}">
+                        <img src="{{ profile.avatar }}" width="150" height="150" alt="IMAGE NOT FOUND" class="pull-left span2 clearfix" style='margin-right:10px'>
+                      </a>
+
+                      <div class="caption" class="pull-left">
+                        <a href="{% url 'actions:follow' %}" class="btn btn-primary icon  pull-right">Follow</a>
+                        <h4>
+                        <a href="#" >{{ profile.first_name }} {{ profile.last_name }}</a>
+                        </h4>
+                        <small><b>RG: </b>99384877</small>
+                      </div>
+                    </div>
+                  </li>
+              </ul>
+          </div>
+    </div>
+
+{% endfor %}
+{% include 'rest_framework/pagination/numbers.html' %}
+
+{% endblock container %}

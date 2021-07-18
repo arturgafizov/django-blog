@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block container %}
+
+
+<div class="container bootstrap snippet">
+    <div class="row">
+  		<div class="col-sm-10"><h1> {{ full_name }}</h1></div>
+    	<div class="col-sm-2">
+        <form action="{% url 'profiles:profile-list' %}">
+          <button class="btn btn-lg btn-primary" class="pull-right"> ALL USERS </button></div>
+        </form>
+
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+
+
+
+      <div class="text-center">
+        <img src="{{ avatar }}" class="avatar img-circle img-thumbnail" alt="avatar" id="avatar">
+      </div>
+    </div>
+
+    	<div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+              </ul>
+
+
+          <div class="tab-content">
+          {% include 'profile/includes/show_home.html' %}
+
+          </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+
+{% endblock container %}

@@ -6,7 +6,7 @@ from . views import ProfileRetrieveView, UploadAvatarView, ProfileViewSet, Profi
 app_name = 'profiles'
 
 router = DefaultRouter()
-router.register('profile', ProfileDetailViewSet , basename='profile')
+router.register('profile', ProfileDetailViewSet, basename='profile')
 
 
 urlpatterns = [

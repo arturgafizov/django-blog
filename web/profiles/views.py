@@ -7,10 +7,16 @@ from rest_framework import status
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import AllowAny
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.viewsets import ModelViewSet
+from main.serializers import UserSerializer
 
 from . import serializers
 from . models import Profile
 from . serializers import (ProfileSerializer, UploadAvatarUserSerializer)
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class UploadAvatarView(GenericAPIView):
@@ -75,3 +81,48 @@ class ProfileViewSet(GenericViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'detail': _('New password has been saved')})
+
+
+class ProfilePageNumberPagination(PageNumberPagination):
+    page_size = 5
+    results_field = 'results'
+    max_page_size = 100
+    page_size_query_param = 'page_size'
+
+    def render(self, data, *args, **kwargs):
+        if not isinstance(data, list):
+            data = data.get(self.results_field, [])
+        return super(ProfilePageNumberPagination, self).render(data, *args, **kwargs)
+
+    def get_paginated_response(self, data):
+        response = super().get_paginated_response(data)
+        response.data.update(self.get_html_context())
+        return response
+
+
+class ProfileDetailViewSet(ModelViewSet):
+    pagination_class = ProfilePageNumberPagination
+
+    def get_template_name(self):
+        if self.action == 'list':
+            return 'profile/profiles_list.html'
+        elif self.action == 'retrieve':
+            return 'profile/show_profile_detail.html'
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return UserSerializer
+        return UserSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(is_active=True)
+
+    def list(self, request, **kwargs):
+        response = super().list(request, **kwargs)
+        response.template_name = self.get_template_name()
+        return response
+
+    def retrieve(self, request, **kwargs):
+        response = super().retrieve(request, **kwargs)
+        response.template_name = self.get_template_name()
+        return response

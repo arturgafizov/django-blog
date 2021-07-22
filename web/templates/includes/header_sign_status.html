@@ -10,7 +10,7 @@
             {% else %}
                 Hello {{ user.full_name }}!
             {% endif %}
-            <a href="/profiles">{% trans 'Profile' %} </a>
+            <a href="{% url 'profiles:profile_detail'  %}">{% trans 'Profile' %} </a>
         </span></li>
         <li><a href="#" id="logoutSubmit">{% trans 'Log off' %}</a></li>
     </ul>

@@ -20,7 +20,6 @@ class LikeDislikeSerializer(serializers.Serializer):
     vote = serializers.ChoiceField(choices=LikeStatus.choices)
     object_id = serializers.IntegerField()
 
-
     def save(self):
         user = self.context['request'].user
         print(self.validated_data)
@@ -61,7 +60,7 @@ class FollowerSerializer(serializers.Serializer):
         user = self.context['request'].user
         to_user = self.validated_data['to_user']
         follower = ActionsService.get_follower(to_user)
-        print(to_user,user.id, follower)
+        print(to_user, user.id, follower)
         if not follower.exists():
             user.follower.create(to_user=to_user)
         else:

@@ -2,8 +2,9 @@ from rest_framework import serializers
 from typing import Union
 from django.contrib.auth import get_user_model
 from main.serializers import UserSerializer
-from .choices import LikeObjChoices, LikeStatus
+from .choices import LikeObjChoices, LikeStatus, LikeIconStatus
 from blog.services import BlogService
+from .models import Follower
 from .services import ActionsService
 from blog.models import Article, Comment
 
@@ -19,12 +20,14 @@ class LikeDislikeSerializer(serializers.Serializer):
     vote = serializers.ChoiceField(choices=LikeStatus.choices)
     object_id = serializers.IntegerField()
 
+
     def save(self):
         user = self.context['request'].user
         print(self.validated_data)
         model = self.validated_data['model']
         object_id = self.validated_data['object_id']
         vote: int = self.validated_data['vote']
+        like_status = LikeIconStatus.LIKED if vote == LikeStatus.LIKE else LikeIconStatus.DISLIKED
         if model == LikeObjChoices.ARTICLE:
             obj: Article = BlogService.get_article(object_id)
         else:
@@ -36,21 +39,33 @@ class LikeDislikeSerializer(serializers.Serializer):
         else:
             if like_dislike.vote == vote:
                 like_dislike.delete()
+                like_status = LikeIconStatus.EMPTY
             else:
                 like_dislike.vote = vote
                 like_dislike.save(update_fields=['vote'])
-        return self.response_data(obj)
+        return self.response_data(obj, like_status)
 
-    def response_data(self, obj: Union[Article, Comment]) -> dict:
+    def response_data(self, obj: Union[Article, Comment], like_status) -> dict:
+
         return {
             'like_count': obj.likes(),
             'dislike_count': obj.dislikes(),
+            'like_status': like_status,
         }
 
 
 class FollowerSerializer(serializers.Serializer):
     to_user = serializers.IntegerField(min_value=1)
 
-    # def save(self):
-    #     user = self.context['request'].user
-    #     to_user = self.validated_data['to_user']
+    def save(self):
+        user = self.context['request'].user
+        to_user = self.validated_data['to_user']
+        follower = ActionsService.get_follower(to_user)
+        print(to_user,user.id, follower)
+        if not follower.exists():
+            user.follower.create(to_user=to_user)
+        else:
+            follower.delete()
+            # user.follower.delete()
+
+        return self.response_data(follower)

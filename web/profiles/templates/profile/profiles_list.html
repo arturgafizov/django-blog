@@ -15,7 +15,7 @@
                       </a>
 
                       <div class="caption" class="pull-left">
-                        <a href="{% url 'actions:follow' %}" class="btn btn-primary icon  pull-right">Follow</a>
+                        <a data-href="{% url 'actions:follow' %}" id="followButton" data-id="{{ profile.id }}" class="btn btn-primary icon  pull-right">Follow</a>
                         <h4>
                         <a href="#" >{{ profile.first_name }} {{ profile.last_name }}</a>
                         </h4>
@@ -31,3 +31,7 @@
 {% include 'rest_framework/pagination/numbers.html' %}
 
 {% endblock container %}
+
+{% block jquery %}
+$.getScript('{% static 'profile/follower.js' %}');
+{% endblock %}

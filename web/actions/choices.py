@@ -16,3 +16,8 @@ class LikeIconStatus(TextChoices):
     LIKED = ('liked', 'Liked')
     DISLIKED = ('disliked', 'Disliked')
     EMPTY = ('empty', 'Empty')
+
+
+class FollowStatus(TextChoices):
+    FOLLOW = ('follow', 'Follow')
+    UNFOLLOW = ('unfollow', 'Unfollow')

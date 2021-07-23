@@ -70,9 +70,8 @@ class FollowerSerializer(serializers.Serializer):
 
         return self.response_data(follower, follow_status)
 
-    def response_data(self, follower,  follow_status)  -> dict:
+    def response_data(self, follower, follow_status) -> dict:
 
         return {
             'follow_status': follow_status,
-
         }

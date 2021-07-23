@@ -12,17 +12,19 @@ function follow(event) {
 
     let follow = $(this);
     let data = {
-      'to_user': follow.data('id'),
+      'to_user': follow.attr('data-id'),
     }
 
     console.log(data)
+    let data_id = this.getAttribute('data-id');
+    console.log(data_id)
     $.ajax({
         url: follow.data('href'),
         type: "POST",
         data: data,
         success: function (data) {
             console.log(data, 'success')
-            $('.caption').text(data.follow)
+            $('.caption').text(data.follow_status)
 
         },
         error: function (data) {
@@ -33,7 +35,7 @@ function follow(event) {
 }
 
 $(document).ready(function(){
-    $('a#followButton').on('click', function () {
+    $(' button#followButton').on('click', function () {
         if ($(this).text() == 'Follow') {
             $(this).text('Unfollow');
         }

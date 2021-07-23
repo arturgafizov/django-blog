@@ -2,7 +2,7 @@ from rest_framework import serializers
 from typing import Union
 from django.contrib.auth import get_user_model
 from main.serializers import UserSerializer
-from .choices import LikeObjChoices, LikeStatus, LikeIconStatus
+from .choices import LikeObjChoices, LikeStatus, LikeIconStatus, FollowStatus
 from blog.services import BlogService
 from .models import Follower
 from .services import ActionsService
@@ -60,11 +60,19 @@ class FollowerSerializer(serializers.Serializer):
         user = self.context['request'].user
         to_user = self.validated_data['to_user']
         follower = ActionsService.get_follower(to_user)
-        print(to_user, user.id, follower)
+
         if not follower.exists():
-            user.follower.create(to_user=to_user)
+            user.followers.create(to_user=to_user, subscriber=user)
+            follow_status = FollowStatus.FOLLOW
         else:
             follower.delete()
-            # user.follower.delete()
+            follow_status = FollowStatus.UNFOLLOW
 
-        return self.response_data(follower)
+        return self.response_data(follower, follow_status)
+
+    def response_data(self, follower,  follow_status)  -> dict:
+
+        return {
+            'follow_status': follow_status,
+
+        }

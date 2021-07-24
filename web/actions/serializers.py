@@ -57,20 +57,20 @@ class FollowerSerializer(serializers.Serializer):
     to_user = serializers.IntegerField(min_value=1)
 
     def save(self):
-        user = self.context['request'].user
-        to_user = self.validated_data['to_user']
-        follower = ActionsService.get_follower(to_user)
+        subscriber = self.context['request'].user
+        to_user: int = self.validated_data['to_user']
 
-        if not follower.exists():
-            user.followers.create(to_user=to_user)
-            follow_status = FollowStatus.FOLLOW
-        else:
-            follower.delete()
+
+        if not ActionsService.is_user_followed(subscriber, to_user):
+            subscriber.following.create(to_user_id=to_user)
             follow_status = FollowStatus.UNFOLLOW
+        else:
+            ActionsService.unfollow_user(subscriber, to_user)
+            follow_status = FollowStatus.FOLLOW
 
-        return self.response_data(follower, follow_status)
+        return self.response_data(follow_status)
 
-    def response_data(self, follower, follow_status) -> dict:
+    def response_data(self, follow_status) -> dict:
 
         return {
             'follow_status': follow_status,

@@ -19,5 +19,5 @@ class LikeIconStatus(TextChoices):
 
 
 class FollowStatus(TextChoices):
-    FOLLOW = ('follow', 'Follow')
-    UNFOLLOW = ('unfollow', 'Unfollow')
+    FOLLOW = ('Follow', 'Follow')
+    UNFOLLOW = ('Unfollow', 'Unfollow')

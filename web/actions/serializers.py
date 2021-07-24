@@ -62,7 +62,7 @@ class FollowerSerializer(serializers.Serializer):
         follower = ActionsService.get_follower(to_user)
 
         if not follower.exists():
-            user.followers.create(to_user=to_user, subscriber=user)
+            user.followers.create(to_user=to_user)
             follow_status = FollowStatus.FOLLOW
         else:
             follower.delete()

@@ -12,7 +12,7 @@ function follow(event) {
 
     let follow = $(this);
     let data = {
-      'to_user': follow.attr('data-id'),
+      'to_user': follow.data('id'),
     }
 
     console.log(data)

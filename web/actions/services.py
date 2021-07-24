@@ -13,6 +13,9 @@ class ActionsService:
         return LikeDislike.objects.get(user=user, content_type=content_type, object_id=object_id)
 
     @staticmethod
-    @except_shell((Follower.DoesNotExist, ))
-    def get_follower(user_id: int):
-        return Follower.objects.filter(subscriber_id=user_id)
+    def is_user_followed(user, to_user_id: int) -> bool:
+        return user.following.filter(to_user_id=to_user_id).exists()
+
+    @staticmethod
+    def unfollow_user(user, to_user_id: int):
+        return user.following.filter(to_user_id=to_user_id).delete()

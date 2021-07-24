@@ -60,7 +60,6 @@ class FollowerSerializer(serializers.Serializer):
         subscriber = self.context['request'].user
         to_user: int = self.validated_data['to_user']
 
-
         if not ActionsService.is_user_followed(subscriber, to_user):
             subscriber.following.create(to_user_id=to_user)
             follow_status = FollowStatus.UNFOLLOW

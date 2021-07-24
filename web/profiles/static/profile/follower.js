@@ -1,7 +1,7 @@
 console.log('follower')
 
 $(function () {
-  $('.caption').click(follow);
+  $('.follow-button').click(follow);
 
 });
 
@@ -24,7 +24,7 @@ function follow(event) {
         data: data,
         success: function (data) {
             console.log(data, 'success')
-            $('.caption').text(data.follow_status)
+            follow.text(data.follow_status)
 
         },
         error: function (data) {
@@ -34,13 +34,13 @@ function follow(event) {
       })
 }
 
-$(document).ready(function(){
-    $(' button#followButton').on('click', function () {
-        if ($(this).text() == 'Follow') {
-            $(this).text('Unfollow');
-        }
-        else {
-            $(this).text('Follow');
-        }
-    });
-});
+
+// $(' button#followButton').on('click', function () {
+//     if ($(this).text() == 'Follow') {
+//         $(this).text('Unfollow');
+//     }
+//     else {
+//         $(this).text('Follow');
+//     }
+// });
+

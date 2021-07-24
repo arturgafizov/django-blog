@@ -14,8 +14,9 @@
                         <img src="{{ profile.avatar }}" width="150" height="150" alt="IMAGE NOT FOUND" class="pull-left span2 clearfix" style='margin-right:10px'>
                       </a>
 
-                      <div class="caption" class="pull-left">{{ profile.id }}
-                        <button class="btn btn-primary icon  pull-right" id="followButton" data-href="{% url 'actions:follow' %}" data-id="{{ profile.id }}" >Follow</button>
+                      <div class="caption"  class="pull-left">{{ profile.id }}
+                        <button class="btn btn-primary icon  pull-right follow-button" data-href="{% url 'actions:follow' %}" data-id="{{ profile.id }}" >
+                            {{ profile.follow }}</button>
                         <h4>
                         <a href="#" >{{ profile.first_name }} {{ profile.last_name }}</a>
                         </h4>

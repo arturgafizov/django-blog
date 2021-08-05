@@ -34,13 +34,27 @@ function follow(event) {
       })
 }
 
+$(window).scroll(function () {
+    // End of the document reached?
+    let url = window.location.pathname
+    console.log(url)
+    if ($(document).height() - $(this).height() == $(this).scrollTop()) {
 
-// $(' button#followButton').on('click', function () {
-//     if ($(this).text() == 'Follow') {
-//         $(this).text('Unfollow');
-//     }
-//     else {
-//         $(this).text('Follow');
-//     }
-// });
+        $.ajax({
+            type: "GET",
+            url: "/profiles/profile/2",
+            contentType: "application/json; charset=utf-8",
+            data: ' ',
+            dataType: "json",
+            success: function (msg) {
+                if (msg.d) {
+                    $(".row").append(msg.d);
 
+                }
+            },
+            error: function (req, status, error) {
+                  alert("Error try again");
+            }
+        });
+    }
+});

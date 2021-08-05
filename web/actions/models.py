@@ -1,5 +1,5 @@
 from django.db import models
-from .choices import LikeStatus
+from .choices import LikeStatus, UserActionChoices
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -25,3 +25,13 @@ class Follower(models.Model):
     class Meta:
         ordering = ('-date', )
         unique_together = ('subscriber', 'to_user', )
+
+
+class UserAction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='actions')
+    action = models.TextField()
+    date = models.DateTimeField(auto_now=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey()
+    objects = models.Manager()

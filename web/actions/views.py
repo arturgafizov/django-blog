@@ -7,7 +7,7 @@ from rest_framework import status
 
 from . import services
 from .models import LikeDislike
-from .serializers import LikeDislikeSerializer, FollowerSerializer
+from .serializers import LikeDislikeSerializer, FollowerSerializer, ActionSerializer
 from profiles.models import Profile
 from django.contrib.auth import get_user_model
 
@@ -31,6 +31,16 @@ class LikeDislikeView(GenericAPIView):
 
 class FollowerView(GenericAPIView):
     serializer_class = FollowerSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.save()
+        return Response(data, status=status.HTTP_201_CREATED)
+
+
+class UserActionView(GenericAPIView):
+    serializer_class = ActionSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

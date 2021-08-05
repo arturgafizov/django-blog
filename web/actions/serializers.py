@@ -2,9 +2,9 @@ from rest_framework import serializers
 from typing import Union
 from django.contrib.auth import get_user_model
 from main.serializers import UserSerializer
-from .choices import LikeObjChoices, LikeStatus, LikeIconStatus, FollowStatus
+from .choices import LikeObjChoices, LikeStatus, LikeIconStatus, FollowStatus, UserActionChoices
 from blog.services import BlogService
-from .models import Follower
+from .models import Follower, UserAction
 from .services import ActionsService
 from blog.models import Article, Comment
 
@@ -74,3 +74,8 @@ class FollowerSerializer(serializers.Serializer):
         return {
             'follow_status': follow_status,
         }
+
+
+class ActionSerializer(serializers.Serializer):
+    action = serializers.ChoiceField(choices=UserActionChoices.choices)
+    object_id = serializers.IntegerField()

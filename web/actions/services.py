@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from .models import LikeDislike, Follower
+from .models import LikeDislike, Follower, UserAction
 from django.contrib.contenttypes.models import ContentType
 from main.decorators import except_shell
 
@@ -19,3 +19,7 @@ class ActionsService:
     @staticmethod
     def unfollow_user(user, to_user_id: int):
         return user.following.filter(to_user_id=to_user_id).delete()
+
+    @staticmethod
+    def create_action(user, action: str, target):
+        UserAction.objects.create(user=user, action=action, content_object=target)

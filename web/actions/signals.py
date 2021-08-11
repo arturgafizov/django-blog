@@ -20,5 +20,10 @@ def user_started_follow(sender, created: bool, instance: Follower, **kwargs):
             url=reverse_lazy('profiles:profile-detail', kwargs={'pk': user.id}),
             full_name=user.full_name()
         )
-        action: str = UserActionChoices.FOLLOW_TO.label.format(subscriber=subscriber, to_user=instance.to_user)
+        to_user = instance.to_user
+        to_user = "<a href='{url}'> {full_name} </a>".format(
+            url=reverse_lazy('profiles:profile-detail', kwargs={'pk': to_user.id}),
+            full_name=to_user.full_name()
+        )
+        action: str = UserActionChoices.FOLLOW_TO.label.format(subscriber=subscriber, to_user=to_user)
         ActionsService.create_action(user, action, instance)

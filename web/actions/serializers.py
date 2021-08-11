@@ -79,3 +79,10 @@ class FollowerSerializer(serializers.Serializer):
 class ActionSerializer(serializers.Serializer):
     action = serializers.ChoiceField(choices=UserActionChoices.choices)
     object_id = serializers.IntegerField()
+
+
+class UserFollowSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id',)

@@ -23,3 +23,15 @@ class ActionsService:
     @staticmethod
     def create_action(user, action: str, target):
         UserAction.objects.create(user=user, action=action, content_object=target)
+
+    @staticmethod
+    def delete_action(user, action: str, target):
+        UserAction.objects.delete(user=user, action=action, content_object=target)
+
+    @staticmethod
+    def get_followers(user):
+        return user.followers.all()
+
+    @staticmethod
+    def get_following(user):
+        return user.following.all()

@@ -14,7 +14,7 @@ class ActionsService:
 
     @staticmethod
     def is_user_followed(user, to_user_id: int) -> bool:
-        return user.following.filter(to_user_id=to_user_id).exists()
+        return Follower.objects.filter(subcriber=user, to_user_id=to_user_id).exists()
 
     @staticmethod
     def unfollow_user(user, to_user_id: int):
@@ -34,4 +34,5 @@ class ActionsService:
 
     @staticmethod
     def get_following(user):
+        print(user.following.all())
         return user.following.all()

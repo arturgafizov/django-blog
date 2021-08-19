@@ -85,4 +85,4 @@ class UserFollowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id',)
+        fields = ('id', 'full_name',)

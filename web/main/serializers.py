@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_follow_status(self, obj):
         user = self.context['request'].user
-        follow_obj = user.following.filter(to_user=obj).exists()
-        if follow_obj:
-            return FollowStatus.UNFOLLOW
+        # follow_obj = user.following.filter(to_user=obj).exists()
+        # if follow_obj:
+        #     return FollowStatus.UNFOLLOW
         return FollowStatus.FOLLOW

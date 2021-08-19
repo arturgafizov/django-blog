@@ -2,7 +2,8 @@ console.log('follower')
 
 $(function () {
   $('.follow-button').click(follow);
-
+  $('#followersButton').click(followerApi);
+  $('#followingButton').click(followerApi);
 });
 
 
@@ -58,3 +59,23 @@ $(window).scroll(function () {
         });
     }
 });
+
+
+function followerApi() {
+    console.log('click')
+    let button = $(this);
+
+    let url = button.data('href')
+    console.log(url)
+
+        $.ajax({
+            type: "GET",
+            url: url,
+
+            success: function (data) {
+              console.log(data, 'success')
+            }
+
+        })
+}
+

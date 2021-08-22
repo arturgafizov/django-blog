@@ -61,7 +61,7 @@ class FollowerSerializer(serializers.Serializer):
         to_user: int = self.validated_data['to_user']
 
         if not ActionsService.is_user_followed(subscriber, to_user):
-            subscriber.following.create(to_user_id=to_user)
+            subscriber.rel_from.create(to_user_id=to_user)
             follow_status = FollowStatus.UNFOLLOW
         else:
             ActionsService.unfollow_user(subscriber, to_user)
@@ -82,7 +82,9 @@ class ActionSerializer(serializers.Serializer):
 
 
 class UserFollowSerializer(serializers.ModelSerializer):
+    avatar = serializers.ImageField(source='profiles_set.avatar')
+    profile_url = serializers.URLField(source='get_absolute_url')
 
     class Meta:
         model = User
-        fields = ('id', 'full_name',)
+        fields = ('id', 'full_name', 'avatar', 'profile_url')

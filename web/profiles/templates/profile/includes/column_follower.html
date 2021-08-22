@@ -1,8 +1,11 @@
           <div class="panel panel-default">
             <div class="panel-heading">Follow<i class="fa fa-link fa-1x"></i></div>
             <div class="panel-body">
-              <button id="followersButton" data-href="{% url 'actions:user-followers' %}">Followers</button>
-              <button id="followingButton" data-href="{% url 'actions:user-following' %}">Following</button>
+              <button id="followersButton" class="btn btn-primary" data-href="{% url 'actions:user-followers' %}">
+                Followers ({{ profile.followers_count }})</button>
+              <button id="followingButton" class="btn btn-primary" data-href="{% url 'actions:user-following' %}">
+                Following ({{ profile.following_count }})</button>
             </div>
           </div>
+
 

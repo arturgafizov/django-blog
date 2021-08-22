@@ -16,7 +16,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles_set')
     mobile = PhoneNumberField(null=True)
     location = models.CharField(max_length=200)
-    avatar = models.ImageField(null=True, blank=True, upload_to=avatar_upload_patch)
+    avatar = models.ImageField(null=True, blank=True, upload_to=avatar_upload_patch, default='default_avatar.jpeg')
     objects = models.Manager()
     website = models.CharField(null=True, max_length=200)
 

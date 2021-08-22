@@ -60,6 +60,25 @@ $(window).scroll(function () {
     }
 });
 
+function modalRender(data) {
+    let body = $('#followModalBody')
+    body.empty()
+    $.each(data, function (i){
+      let template = `
+      <div class="user">
+        <p>
+          <img src="${data[i].avatar}" class="avatar img-circle img-thumbnail" width=50px>
+          <a href='${data[i].profile_url}'> ${data[i].full_name} </a>
+        </p>
+      </div>
+      `
+      body.append(template)
+    })
+
+}
+
+
+
 
 function followerApi() {
     console.log('click')
@@ -74,6 +93,10 @@ function followerApi() {
 
             success: function (data) {
               console.log(data, 'success')
+              modalRender(data)
+              $('#followModalTitle').text(button.text())
+              $('#followerModal').modal('show')
+
             }
 
         })

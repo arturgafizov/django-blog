@@ -38,7 +38,7 @@ class CategoryViewSet(ViewSet):
 
 
 class ArticlePageNumberPagination(PageNumberPagination):
-    page_size = 2
+    page_size = 6
     results_field = 'results'
     max_page_size = 100
     page_size_query_param = 'page_size'

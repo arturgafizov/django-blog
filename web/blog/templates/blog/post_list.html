@@ -8,8 +8,8 @@
 {% block container %}
 
 
-<div class="row">
-  <div class="col-lg-8"><br><br><br><br>
+<div class="row" >
+  <div class="col-lg-8" id="pagination" data-href="{{ next }}"><br><br><br><br>
     {% for article in results %}
     <div class="row">
       <div class="col-md-12 post">
@@ -64,7 +64,7 @@
       </div>
     </div>
     {% endfor %}
-    {% include 'rest_framework/pagination/numbers.html' %}
+    {# include 'rest_framework/pagination/numbers.html'  #}
 
   </div>
   {% include 'blog/includes/right_sidebar.html' %}

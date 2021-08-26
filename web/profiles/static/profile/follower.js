@@ -69,12 +69,14 @@ function modalRender(data) {
         <p>
           <img src="${data[i].avatar}" class="avatar img-circle img-thumbnail" width=50px>
           <a href='${data[i].profile_url}'> ${data[i].full_name} </a>
+          <button class="btn btn-primary btn-sm follow-button" data-href="${body.data('href')}" data-id='${data[i].id}'> ${data[i].follow} </button>
+          <p>------------------------------------------------------</p>
         </p>
       </div>
       `
       body.append(template)
     })
-
+    $('.follow-button').click(follow);
 }
 
 

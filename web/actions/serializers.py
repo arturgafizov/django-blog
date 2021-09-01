@@ -96,3 +96,7 @@ class UserFollowSerializer(serializers.ModelSerializer):
         if follow_obj:
             return FollowStatus.UNFOLLOW
         return FollowStatus.FOLLOW
+
+
+class UserFollowQuerySerializer(serializers.Serializer):
+    user_id = serializers.IntegerField(min_value=1, required=False)

@@ -77,7 +77,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = ('id', 'title', 'url', 'author', 'category', 'created', 'updated', 'comments_count', 'image',
-                  'likes', 'dislikes', 'like_status')
+                  'likes', 'dislikes', 'like_status', 'content')
         read_only_fields = ('author', 'comments_count', 'url')
 
     def get_like_status(self, obj):
@@ -102,7 +102,7 @@ class FullArticleSerializer(ArticleSerializer):
         return serializer.data
 
     class Meta(ArticleSerializer.Meta):
-        fields = ArticleSerializer.Meta.fields + ('content', 'comments',)
+        fields = ArticleSerializer.Meta.fields + ( 'comments',)
 
 
 class CreateArticleSerializer(serializers.ModelSerializer):

@@ -9,9 +9,10 @@ from rest_framework.viewsets import GenericViewSet
 
 from .services import ActionsService
 from .models import LikeDislike, Follower
-from .serializers import LikeDislikeSerializer, FollowerSerializer, ActionSerializer, UserFollowSerializer
+from . import serializers
 from profiles.models import Profile
 from django.contrib.auth import get_user_model
+from main.services import UserService
 
 User = get_user_model()
 
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 class LikeDislikeView(GenericAPIView):
-    serializer_class = LikeDislikeSerializer
+    serializer_class = serializers.LikeDislikeSerializer
 
     def get_queryset(self):
         return LikeDislike.objects.all()
@@ -32,7 +33,7 @@ class LikeDislikeView(GenericAPIView):
 
 
 class FollowerView(GenericAPIView):
-    serializer_class = FollowerSerializer
+    serializer_class = serializers.FollowerSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -42,7 +43,7 @@ class FollowerView(GenericAPIView):
 
 
 class UserActionView(GenericAPIView):
-    serializer_class = ActionSerializer
+    serializer_class = serializers.ActionSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -52,16 +53,21 @@ class UserActionView(GenericAPIView):
 
 
 class UserFollowView(ListModelMixin, GenericViewSet):
-    serializer_class = UserFollowSerializer
+    serializer_class = serializers.UserFollowSerializer
 
     def get_queryset(self):
+        print(self.request.query_params)
+        user_id = self.request.query_params.get('user_id')
+        user = ActionsService.get_user_by_id(user_id) if user_id else self.request.user
         if self.action == 'get_followers':
-            return ActionsService.get_followers(self.request.user)
+            return ActionsService.get_followers(user)
         if self.action == 'get_following':
-            return ActionsService.get_following(self.request.user)
+            return ActionsService.get_following(user)
 
+    @swagger_auto_schema(query_serializer=serializers.UserFollowQuerySerializer)
     def get_followers(self, request):
         return super().list(request)
 
+    @swagger_auto_schema(query_serializer=serializers.UserFollowQuerySerializer)
     def get_following(self, request):
         return super().list(request)

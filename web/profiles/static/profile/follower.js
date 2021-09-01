@@ -4,6 +4,8 @@ $(function () {
   $('.follow-button').click(follow);
   $('#followersButton').click(followerApi);
   $('#followingButton').click(followerApi);
+  $('#followersButtonShow').click(followerApiShow);
+  $('#followingButtonShow').click(followerApiShow);
 });
 
 
@@ -104,3 +106,46 @@ function followerApi() {
         })
 }
 
+function modalRenderShow(data) {
+    let body = $('#followModalBodyShow')
+    body.empty()
+    $.each(data, function (i){
+      let template = `
+      <div class="user">
+        <p>
+          <img src="${data[i].avatar}" class="avatar img-circle img-thumbnail" width=50px>
+          <a href='${data[i].profile_url}'> ${data[i].full_name} </a>
+          <button class="btn btn-primary btn-sm follow-button" data-href="${body.data('href')}" data-id='${data[i].id}'> ${data[i].follow} </button>
+          <p>------------------------------------------------------</p>
+        </p>
+      </div>
+      `
+      body.append(template)
+    })
+    $('.follow-button').click(follow);
+}
+
+
+
+
+function followerApiShow() {
+    console.log('click')
+    let button = $(this);
+
+    let url = button.data('href')
+    console.log(url)
+
+        $.ajax({
+            type: "GET",
+            url: url,
+
+            success: function (data) {
+              console.log(data, 'success')
+              modalRenderShow(data)
+              $('#followModalTitleShow').text(button.text())
+              $('#followerModalShow').modal('show')
+
+            }
+
+        })
+}

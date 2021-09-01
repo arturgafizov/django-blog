@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block container %}
 
 
@@ -22,6 +22,7 @@
       </div>
     </div>
 
+
     	<div class="col-sm-9">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
@@ -36,4 +37,10 @@
         </div><!--/col-9-->
     </div><!--/row-->
 
+{% include 'profile/includes/column_show_follower.html' %}
+{% include 'profile/includes/modal_window_show_followi.html' %}
 {% endblock container %}
+
+{% block jquery %}
+$.getScript('{% static 'profile/follower.js' %}');
+{% endblock %}

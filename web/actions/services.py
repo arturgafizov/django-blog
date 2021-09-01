@@ -3,7 +3,9 @@ from django.conf import settings
 from .models import LikeDislike, Follower, UserAction
 from django.contrib.contenttypes.models import ContentType
 from main.decorators import except_shell
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class ActionsService:
     @staticmethod
@@ -30,9 +32,14 @@ class ActionsService:
 
     @staticmethod
     def get_followers(user):
-        return user.followers.all()
+        return user.followers.all() if user is not None else print('This id not in DB')
 
     @staticmethod
     def get_following(user):
         # print(user.following.all())
-        return user.following.all()
+        return user.following.all() if user is not None else print('This id not in DB')
+
+    @staticmethod
+    @except_shell((User.DoesNotExist,))
+    def get_user_by_id(user_id: int):
+        return User.objects.get(id=user_id)

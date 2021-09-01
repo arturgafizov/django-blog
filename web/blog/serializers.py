@@ -102,7 +102,7 @@ class FullArticleSerializer(ArticleSerializer):
         return serializer.data
 
     class Meta(ArticleSerializer.Meta):
-        fields = ArticleSerializer.Meta.fields + ( 'comments',)
+        fields = ArticleSerializer.Meta.fields + ('comments',)
 
 
 class CreateArticleSerializer(serializers.ModelSerializer):

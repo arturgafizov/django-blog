@@ -9,7 +9,8 @@ class User(AbstractUser):
 
     username = None
     email = models.EmailField(_('Email address'), unique=True)
-    following = models.ManyToManyField('self', related_name='followers', through='actions.Follower', symmetrical=False)
+    following = models.ManyToManyField('self', related_name='followers', through='actions.Follower', symmetrical=False,
+                                       blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

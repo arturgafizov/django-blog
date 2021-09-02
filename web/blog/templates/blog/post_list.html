@@ -69,5 +69,6 @@
 {% endblock container %}
 
 {% block jquery %}
+$.getScript('{% static 'jquery-dateFormat.min.js' %}');
 $.getScript('{% static 'blog/js/list.js' %}');
 {% endblock %}

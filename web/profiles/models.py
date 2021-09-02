@@ -3,6 +3,7 @@ from django.db import models
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.safestring import mark_safe
+from rest_framework.reverse import reverse_lazy
 
 User = get_user_model()
 
@@ -29,6 +30,10 @@ class Profile(models.Model):
     def old_avatar_delete(self):
         if self.avatar:
             self.avatar.delete()
+
+    def get_absolute_url(self):
+        url = 'profiles:profile-detail'
+        return reverse_lazy(url, args=self.id)
 
     def avatar_image(self):
         url = self.avatar.url if self.avatar else ''

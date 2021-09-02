@@ -52,10 +52,11 @@ class UploadAvatarUserSerializer(serializers.Serializer):
 class UpdateUserProfileSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
+    url = serializers.CharField(source='get_absolute_url')
 
     class Meta:
         model = Profile
-        fields = ('first_name', 'last_name', 'mobile', 'location')
+        fields = ('first_name', 'last_name', 'mobile', 'location', 'url')
 
     def update(self, profile, validated_data):
         print(validated_data)

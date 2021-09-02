@@ -4,11 +4,10 @@ $(function () {
 });
 
 console.log('blog-list')
-
+// document.write($.format.date(
 
 function pageRender(data, pagination) {
-    // const { format } = require('date-fns')
-    // const day =format(new Date(),'do.MMM.yyyy');
+    // 'do.MMM.yyyy';
     $.each(data, function (i){
       let template = `
     <div class="row">

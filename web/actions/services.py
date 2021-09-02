@@ -33,14 +33,9 @@ class ActionsService:
 
     @staticmethod
     def get_followers(user):
-        return user.followers.all() if user is not None else print('This id not in DB')
+        return user.followers.all()
 
     @staticmethod
     def get_following(user):
         # print(user.following.all())
-        return user.following.all() if user is not None else print('This id not in DB')
-
-    @staticmethod
-    @except_shell((User.DoesNotExist,))
-    def get_user_by_id(user_id: int):
-        return User.objects.get(id=user_id)
+        return user.following.all()

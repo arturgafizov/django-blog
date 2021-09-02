@@ -1,9 +1,9 @@
           <div class="row">
             <div class="panel-heading">Follow<i class="fa fa-link fa-1x"></i></div>
             <div class="panel-body">
-              <button id="followersButtonShow" class="btn btn-primary" data-href="{% url 'actions:user-followers' %}">
+              <button id="followersButtonShow" class="btn btn-primary" data-href="{% url 'actions:user-followers' %}?user_id={{ id }}">
                 Followers ({{ followers_count }})</button>
-              <button id="followingButtonShow" class="btn btn-primary" data-href="{% url 'actions:user-following' %}">
+              <button id="followingButtonShow" class="btn btn-primary" data-href="{% url 'actions:user-following' %}?user_id={{ id }}">
                 Following ({{ following_count }})</button>
             </div>
           </div>

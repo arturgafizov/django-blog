@@ -6,7 +6,7 @@ from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import GenericViewSet
-
+from rest_framework.exceptions import NotFound
 from .services import ActionsService
 from .models import LikeDislike, Follower
 from . import serializers
@@ -58,7 +58,7 @@ class UserFollowView(ListModelMixin, GenericViewSet):
     def get_queryset(self):
         print(self.request.query_params)
         user_id = self.request.query_params.get('user_id')
-        user = ActionsService.get_user_by_id(user_id) if user_id else self.request.user
+        user = get_object_or_404(User, id=user_id) if user_id else self.request.user
         if self.action == 'get_followers':
             return ActionsService.get_followers(user)
         if self.action == 'get_following':

@@ -3,7 +3,7 @@
 
 {% block container %}
 
-  <div id="pagination">
+  <div id="pagination" data-href="{{ next }}">
     {% for profile in results %}
         <div class="row" id="myScroll">
               <div class="span12">
@@ -35,4 +35,5 @@
 
 {% block jquery %}
 $.getScript('{% static 'profile/follower.js' %}');
+$.getScript('{% static 'profile/list.js' %}');
 {% endblock %}

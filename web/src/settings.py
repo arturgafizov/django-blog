@@ -139,6 +139,7 @@ if ENABLE_RENDERING:
 
 ROOT_URLCONF = 'src.urls'
 
+LOGOUT_REDIRECT_URL = 'auth/logout'
 LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
 

@@ -85,10 +85,11 @@ class UserFollowSerializer(serializers.ModelSerializer):
     avatar = serializers.ImageField(source='profiles_set.avatar')
     profile_url = serializers.URLField(source='get_absolute_url')
     follow = serializers.SerializerMethodField(method_name='get_follow_status')
+    url = serializers.URLField(source='get_absolute_url')
 
     class Meta:
         model = User
-        fields = ('id', 'full_name', 'avatar', 'profile_url', 'follow', )
+        fields = ('id', 'full_name', 'avatar', 'profile_url', 'follow', 'url')
 
     def get_follow_status(self, obj):
         user = self.context['request'].user

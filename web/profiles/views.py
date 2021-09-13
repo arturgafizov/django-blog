@@ -128,6 +128,7 @@ class ProfileDetailViewSet(ModelViewSet):
         response.template_name = self.get_template_name()
         return response
 
+
 class ChatView(TemplateAPIView):
     template_name = 'profile/template_chat.html'
 
@@ -137,4 +138,3 @@ class ShortUserInfoView(RetrieveAPIView):
 
     def get_queryset(self):
         return User.objects.select_related('profiles_set').all()
-

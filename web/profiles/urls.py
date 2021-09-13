@@ -1,7 +1,8 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from . views import ProfileRetrieveView, UploadAvatarView, ProfileViewSet, ProfileDetailViewSet, ChatView, ShortUserInfoView
+from . views import ProfileRetrieveView, UploadAvatarView, ProfileViewSet, ProfileDetailViewSet, ChatView, \
+    ShortUserInfoView
 
 app_name = 'profiles'
 

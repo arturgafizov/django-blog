@@ -5,7 +5,7 @@
   		<div class="col-sm-10"><h1>{{ profile.full_name }} </h1></div>
     	<div class="col-sm-2">
         <form action="{% url 'profiles:profile-list' %}">
-          <button class="btn btn-lg btn-primary" class="pull-right"> ALL USERS </button></div>
+          <button class="btn btn-lg btn-primary" class="pull-right"> ALL USERS </button>
         </form>
 
     </div>
@@ -24,6 +24,7 @@
       </div></hr><br>
 
       {% include 'profile/includes/column_website.html' %}
+      {% include 'profile/includes/column_chat.html' %}
       {% include 'profile/includes/column_follower.html' %}
       {% include 'profile/includes/column_activity.html' %}
       {% include 'profile/includes/column_social_media.html' %}

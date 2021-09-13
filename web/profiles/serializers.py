@@ -66,3 +66,12 @@ class UpdateUserProfileSerializer(serializers.ModelSerializer):
             setattr(user, key, value)
         user.save()
         return super().update(profile, validated_data)
+
+
+class ShortUserInfoSerializer(serializers.ModelSerializer):
+    profile_url = serializers.URLField(source='get_absolute_url')
+    avatar = serializers.ImageField(source='profiles_set.avatar')
+
+    class Meta:
+        model = User
+        fields = ('id', 'full_name', 'email', 'profile_url', 'avatar')

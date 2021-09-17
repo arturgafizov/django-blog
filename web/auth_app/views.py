@@ -1,4 +1,5 @@
 import logging
+from django.contrib.auth import get_user_model
 from django.contrib.auth import logout as django_logout
 from django.utils.translation import gettext_lazy as _
 from dj_rest_auth import views as auth_views
@@ -6,7 +7,7 @@ from dj_rest_auth.registration.views import (
     VerifyEmailView as _VerifyEmailView,
 )
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, GenericAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
@@ -16,7 +17,7 @@ from .services import full_logout
 from main.services import UserService
 
 logger = logging.getLogger(__name__)
-
+User = get_user_model()
 
 class LoginView(auth_views.LoginView):
     serializer_class = serializers.LoginSerializer
@@ -61,3 +62,17 @@ class LogoutView(auth_views.LogoutView):
         self.session_logout()
         response = full_logout(request)
         return response
+
+
+class UserSignInInfoView(RetrieveAPIView):
+    serializer_class = serializers.UserSignInInfoSerializer
+
+    def get_queryset(self):
+        return User.objects.all()
+
+
+class UserSignUPInfoView(RetrieveAPIView):
+    serializer_class = serializers.UserSignUpInfoSerializer
+
+    def get_queryset(self):
+        return User.objects.all()

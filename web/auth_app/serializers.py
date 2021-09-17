@@ -110,3 +110,17 @@ class PasswordResetConfirmSerializer(auth_serializers.PasswordResetConfirmSerial
 
 class VerifyEmailSerializer(serializers.Serializer):
     key = serializers.CharField()
+
+
+class UserSignInInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'password')
+
+
+class UserSignUpInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'email',)

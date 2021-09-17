@@ -19,6 +19,7 @@ from main.services import UserService
 logger = logging.getLogger(__name__)
 User = get_user_model()
 
+
 class LoginView(auth_views.LoginView):
     serializer_class = serializers.LoginSerializer
 

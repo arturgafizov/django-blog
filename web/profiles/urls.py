@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from . views import ProfileRetrieveView, UploadAvatarView, ProfileViewSet, ProfileDetailViewSet, ChatView, \
-    ShortUserInfoView
+    ShortUserInfoView, ListShortUserInfoView
 
 app_name = 'profiles'
 
@@ -16,6 +16,7 @@ urlpatterns = [
     path('profile/change-password/', ProfileViewSet.as_view({'post': 'change_password'}), name='change_password'),
     path('chat/', ChatView.as_view(), name='chat'),
     path('profile/short/<pk>/', ShortUserInfoView.as_view(), name='short_user_info'),
+    path('profile/short/', ListShortUserInfoView.as_view(), name='list_short_user_info'),
 ]
 
 urlpatterns += router.urls

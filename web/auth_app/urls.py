@@ -23,6 +23,8 @@ urlpatterns += [
     path('password/reset/', views.PasswordResetView.as_view(), name='api_forgot_password'),
     path('password/reset/confirm/', views.PasswordResetConfirmView.as_view(), name='api_password_reset_confirm'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('sign-in/info/<pk>/', views.UserSignInInfoView.as_view(), name='user_sign_in_info'),
+    path('sign-up/info/<pk>/', views.UserSignUPInfoView.as_view(), name='user_sign_up_info'),
 ]
 
 urlpatterns += router.urls

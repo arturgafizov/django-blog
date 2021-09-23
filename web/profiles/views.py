@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from dj_rest_auth.serializers import PasswordChangeSerializer
 from rest_framework.response import Response
-from rest_framework.generics import GenericAPIView, RetrieveAPIView, ListAPIView
+from rest_framework.generics import GenericAPIView, RetrieveAPIView, ListAPIView, UpdateAPIView
 from rest_framework import status
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.parsers import FileUploadParser
@@ -133,7 +133,7 @@ class ChatView(TemplateAPIView):
     template_name = 'profile/template_chat.html'
 
 
-class ShortUserInfoView(RetrieveAPIView):
+class ShortUserInfoView(RetrieveAPIView, UpdateAPIView):
     serializer_class = ShortUserInfoSerializer
 
     def get_queryset(self):

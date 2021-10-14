@@ -4,7 +4,9 @@ $(function () {
   $('#forgotPasswordForm').submit(forgotPassword);
 });
 
+
 const error_class_name = "has-error"
+
 
 function error_process(data) {
   $(".help-block").remove()
@@ -21,10 +23,13 @@ function error_process(data) {
   }
 
 }
+
+
 function help_block(group, variable) {
   $(group).addClass(error_class_name);
   $(group).append('<div class="help-block">' + variable + "</div>");
 }
+
 
 function login(e) {
   let form = $(this);
@@ -35,6 +40,7 @@ function login(e) {
     dataType: 'json',
     data: form.serialize(),
     success: function (data) {
+      localStorage.setItem('jwt', data.access_token)
       location.reload();
     },
     error: function (data) {
@@ -42,7 +48,6 @@ function login(e) {
     }
   })
 }
-
 
 
 function forgotPassword (event) {

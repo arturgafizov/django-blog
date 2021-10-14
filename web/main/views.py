@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserJwtSerializer
 
 User = get_user_model()
 
@@ -43,3 +43,13 @@ class UserView(GenericAPIView):
 
 class IndexView(TemplateAPIView):
     template_name = 'index.html'
+
+
+class UserJwtView(GenericAPIView):
+    serializer_class = UserJwtSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        print(serializer.data)
+        return Response(serializer.data)

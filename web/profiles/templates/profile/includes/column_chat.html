@@ -1,9 +1,11 @@
-          <div class="panel panel-default">
-            <div class="panel-heading">Chat <i class="fa fa-link fa-1x"></i></div>
-            <div class="panel-body">
-              <form action="{% url 'profiles:chat' %}">
-              <button id="followersButton" class="btn btn-danger" ><i
-                class="glyphicon glyphicon-ok-sign"></i>     Chat    </button>
-              </form>
-            </div>
-          </div>
+{% load main %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">Chat <i class="fa fa-link fa-1x"></i></div>
+  <div class="panel-body">
+      <button id="chatButton" data-href="{% chat_proxy %}" class="btn btn-danger"><i
+        class="glyphicon glyphicon-ok-sign" ></i> Chat
+      </button>
+  </div>
+</div>
+

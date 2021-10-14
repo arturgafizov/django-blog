@@ -25,3 +25,11 @@ class UserSerializer(serializers.ModelSerializer):
         if follow_obj:
             return FollowStatus.UNFOLLOW
         return FollowStatus.FOLLOW
+
+
+class UserJwtSerializer(serializers.Serializer):
+    jwt = serializers.CharField()
+
+    def validate_jwt(self, jwt):
+
+        return jwt

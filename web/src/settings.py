@@ -28,6 +28,8 @@ MICROSERVICE_TITLE = os.environ.get('MICROSERVICE_TITLE', 'Template')
 
 FRONTEND_SITE = 'http://localhost:8008'
 
+CHAT_PROXY = os.environ.get('CHAT_PROXY', 'http://localhost:8010/chat/init/')
+
 REDIS_URL = os.environ.get('REDIS_URL')
 
 USE_HTTPS = int(os.environ.get('USE_HTTPS', 0))

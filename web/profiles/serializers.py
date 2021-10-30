@@ -94,7 +94,6 @@ class ShortUserInfoSerializer(serializers.ModelSerializer):
     profile_url = serializers.URLField(source='get_profile_url')
     avatar = serializers.ImageField(source='profiles_set.avatar')
 
-
     class Meta:
         model = User
         fields = ('id', 'full_name', 'email', 'profile_url', 'avatar',)
@@ -104,5 +103,3 @@ class ShortUserInfoSerializer(serializers.ModelSerializer):
         print(request)
         avatar_url = user.profiles_set.avatar
         return request.build_absolute_uri(avatar_url)
-        # obj_url = user.get_absolute_url()
-        # return self.context["request"].build_absolute_uri(obj_url)

@@ -1,11 +1,10 @@
 {% load main %}
 
-<div class="panel panel-default">
-  <div class="panel-heading">Chat <i class="fa fa-link fa-1x"></i></div>
+<div class="panel panel-default" style="width: 270px;">
+  <div class="panel-heading" style="width: 268px;">Chat <i class="fa fa-link fa-1x"></i></div>
   <div class="panel-body">
-      <button id="chatButton" data-href="{% chat_proxy %}" class="btn btn-danger"><i
-        class="glyphicon glyphicon-ok-sign" ></i> Chat
+      <button id="chatButton" data-href="{% chat_proxy %}" class="btn btn-danger" data-userId="{{ id }}"><i
+        class="glyphicon glyphicon-ok-sign" ></i> Write a message
       </button>
   </div>
 </div>
-

@@ -26,7 +26,8 @@ SUPERUSER_PASSWORD = os.environ.get('SUPERUSER_PASSWORD', 'tester26')
 
 MICROSERVICE_TITLE = os.environ.get('MICROSERVICE_TITLE', 'Template')
 
-FRONTEND_SITE = 'http://localhost:8008'
+FRONTEND_SITE = os.environ.get('FRONTEND_SITE', 'http://localhost:8008')
+BACKEND_SITE = os.environ.get('BACKEND_SITE', 'http://localhost:8008')
 
 CHAT_PROXY = os.environ.get('CHAT_PROXY', 'http://localhost:8010/chat/init/')
 
@@ -89,6 +90,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'rosetta',
     'django_summernote',
+    'imagekit',
 
     'django_countries',
     'phonenumber_field',

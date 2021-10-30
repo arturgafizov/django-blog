@@ -39,8 +39,10 @@
 
 {% include 'profile/includes/column_show_follower.html' %}
 {% include 'profile/includes/modal_window_show_followi.html' %}
+{% include 'profile/includes/column_chat.html' %}
 {% endblock container %}
 
 {% block jquery %}
 $.getScript('{% static 'profile/follower.js' %}');
+$.getScript('{% static 'profile/chat.js' %}');
 {% endblock %}

@@ -1,35 +1,29 @@
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
-
+from jwt import DecodeError
+from rest_framework import serializers, request
+from django.conf import settings
 from actions.choices import FollowStatus
 from actions.models import Follower
+import jwt
+
+from profiles.serializers import ShortUserInfoSerializer
 
 User = get_user_model()
-
-
-class UserSerializer(serializers.ModelSerializer):
-    avatar = serializers.ImageField(source='profiles_set.avatar')
-    follow = serializers.SerializerMethodField(method_name='get_follow_status')
-
-    class Meta:
-        model = User
-        fields = ('id', 'full_name', 'email', 'first_name', 'last_name', 'avatar',
-                  'follow', 'followers_count', 'following_count')
-        extra_kwargs = {
-            'avatar': {'read_only': True},
-        }
-
-    def get_follow_status(self, obj):
-        user = self.context['request'].user
-        follow_obj = Follower.objects.filter(subscriber=user, to_user=obj).exists()
-        if follow_obj:
-            return FollowStatus.UNFOLLOW
-        return FollowStatus.FOLLOW
 
 
 class UserJwtSerializer(serializers.Serializer):
     jwt = serializers.CharField()
 
-    def validate_jwt(self, jwt):
+    def validate_jwt(self, jwt_token):
+        try:
+            token = (jwt.decode(jwt_token, settings.SECRET_KEY, algorithms=["HS256"]))
+            print(token['user_id'])
+            self.user = User.objects.get(id=token['user_id'])
 
-        return jwt
+        except (DecodeError, User.DoesNotExist) as e:
+            raise serializers.ValidationError(e)
+        return jwt_token
+
+    @property
+    def data(self):
+        return ShortUserInfoSerializer(self.user, context=self.context).data

@@ -1,8 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 from rest_framework.reverse import reverse_lazy
 from .managers import UserManager
+from urllib.parse import urljoin
 
 
 class User(AbstractUser):
@@ -26,6 +29,10 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse_lazy('profiles:profile-detail', args=[self.id])
+
+    @cached_property
+    def get_profile_url(self):
+        return urljoin(settings.BACKEND_SITE, str(self.get_absolute_url()))
 
     def full_name(self):
         return super().get_full_name()

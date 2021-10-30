@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from typing import Union
 from django.contrib.auth import get_user_model
-from main.serializers import UserSerializer
 from .choices import LikeObjChoices, LikeStatus, LikeIconStatus, FollowStatus, UserActionChoices
 from blog.services import BlogService
 from .models import Follower, UserAction

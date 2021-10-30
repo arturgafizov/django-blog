@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from main.serializers import UserSerializer
+from profiles.serializers import UserSerializer
 from .models import Category, Article, Comment
 from .services import BlogService
 from actions.choices import LikeIconStatus, LikeStatus

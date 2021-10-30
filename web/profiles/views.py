@@ -5,16 +5,13 @@ from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, RetrieveAPIView, ListAPIView, UpdateAPIView
 from rest_framework import status
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.parsers import FileUploadParser
-from rest_framework.permissions import AllowAny
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import ModelViewSet
-from main.serializers import UserSerializer
 from main.views import TemplateAPIView
 
 from . import serializers
 from . models import Profile
-from . serializers import (ProfileSerializer, UploadAvatarUserSerializer, ShortUserInfoSerializer, )
+from . serializers import (UploadAvatarUserSerializer, ShortUserInfoSerializer, UserSerializer)
 from django.contrib.auth import get_user_model
 
 User = get_user_model()

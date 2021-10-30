@@ -1,11 +1,33 @@
 from rest_framework import serializers
-
-from .models import Profile
-from main.serializers import UserSerializer
 from django.contrib.auth import get_user_model
+
+from actions.choices import FollowStatus
+from actions.models import Follower
+from .models import Profile
+
 from phonenumber_field.serializerfields import PhoneNumberField
 
 User = get_user_model()
+
+
+class UserSerializer(serializers.ModelSerializer):
+    avatar = serializers.ImageField(source='profiles_set.avatar')
+    follow = serializers.SerializerMethodField(method_name='get_follow_status')
+
+    class Meta:
+        model = User
+        fields = ('id', 'full_name', 'email', 'first_name', 'last_name', 'avatar',
+                  'follow', 'followers_count', 'following_count')
+        extra_kwargs = {
+            'avatar': {'read_only': True},
+        }
+
+    def get_follow_status(self, obj):
+        user = self.context['request'].user
+        follow_obj = Follower.objects.filter(subscriber=user, to_user=obj).exists()
+        if follow_obj:
+            return FollowStatus.UNFOLLOW
+        return FollowStatus.FOLLOW
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -69,9 +91,18 @@ class UpdateUserProfileSerializer(serializers.ModelSerializer):
 
 
 class ShortUserInfoSerializer(serializers.ModelSerializer):
-    profile_url = serializers.URLField(source='get_absolute_url')
+    profile_url = serializers.URLField(source='get_profile_url')
     avatar = serializers.ImageField(source='profiles_set.avatar')
+
 
     class Meta:
         model = User
-        fields = ('id', 'full_name', 'email', 'profile_url', 'avatar')
+        fields = ('id', 'full_name', 'email', 'profile_url', 'avatar',)
+
+    def get_avatar_url(self, user):
+        request = self.context.get('request')
+        print(request)
+        avatar_url = user.profiles_set.avatar
+        return request.build_absolute_uri(avatar_url)
+        # obj_url = user.get_absolute_url()
+        # return self.context["request"].build_absolute_uri(obj_url)

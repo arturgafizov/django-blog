@@ -27,3 +27,7 @@ class UserJwtSerializer(serializers.Serializer):
     @property
     def data(self):
         return ShortUserInfoSerializer(self.user, context=self.context).data
+
+
+class UsersIdSerializer(serializers.Serializer):
+    users_id = serializers.ListField(child=serializers.IntegerField())

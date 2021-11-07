@@ -6,8 +6,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from profiles.serializers import UserSerializer
-from .serializers import UserJwtSerializer
+from profiles.serializers import UserSerializer, ShortUserInfoSerializer
+from .serializers import UserJwtSerializer, UsersIdSerializer
 
 User = get_user_model()
 
@@ -53,3 +53,17 @@ class UserJwtView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data)
+
+
+class UsersIdView(GenericAPIView):
+    serializer_class = UsersIdSerializer
+
+    def post(self, request):
+        print(request.data)
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        qs = User.objects.filter(id__in=serializer.data['users_id'])
+        data = ShortUserInfoSerializer(qs, many=True, context=self.get_serializer_context()).data
+        print(data)
+        return Response(data)

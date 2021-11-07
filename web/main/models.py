@@ -34,6 +34,10 @@ class User(AbstractUser):
     def get_profile_url(self):
         return urljoin(settings.BACKEND_SITE, str(self.get_absolute_url()))
 
+    @cached_property
+    def get_avatar_url(self):
+        return urljoin(settings.BACKEND_SITE, str(self.profiles_set.avatar.url))
+
     def full_name(self):
         return super().get_full_name()
 

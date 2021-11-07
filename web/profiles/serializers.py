@@ -92,11 +92,12 @@ class UpdateUserProfileSerializer(serializers.ModelSerializer):
 
 class ShortUserInfoSerializer(serializers.ModelSerializer):
     profile_url = serializers.URLField(source='get_profile_url')
-    avatar = serializers.ImageField(source='profiles_set.avatar')
+    # avatar = serializers.ImageField(source='profiles_set.avatar')
+    avatar_url = serializers.URLField(source='get_avatar_url')
 
     class Meta:
         model = User
-        fields = ('id', 'full_name', 'email', 'profile_url', 'avatar',)
+        fields = ('id', 'full_name', 'email', 'profile_url', 'avatar_url', )
 
     def get_avatar_url(self, user):
         request = self.context.get('request')

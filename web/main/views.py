@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 
 from profiles.serializers import UserSerializer, ShortUserInfoSerializer
 from .serializers import UserJwtSerializer, UsersIdSerializer
+from .services import UserService
 
 User = get_user_model()
 
@@ -59,11 +60,12 @@ class UsersIdView(GenericAPIView):
     serializer_class = UsersIdSerializer
 
     def post(self, request):
-        print(request.data)
+        # print(request.data)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        qs = User.objects.filter(id__in=serializer.data['users_id'])
+        print(serializer.data['users_id'])
+        # qs = User.objects.filter(id__in=serializer.data['users_id'])
+        qs = UserService.get_users(serializer.data['users_id'])
         data = ShortUserInfoSerializer(qs, many=True, context=self.get_serializer_context()).data
         print(data)
         return Response(data)

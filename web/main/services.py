@@ -80,3 +80,7 @@ class UserService:
         user.is_active = True
         user.save(update_fields=['is_active'])
         return user
+
+    @staticmethod
+    def get_users(users_id: list):
+        return User.objects.filter(id__in=users_id)

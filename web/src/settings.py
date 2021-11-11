@@ -90,7 +90,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'rosetta',
     'django_summernote',
-    'imagekit',
+    # 'imagekit',
 
     'django_countries',
     'phonenumber_field',
